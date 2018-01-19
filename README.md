@@ -1,10 +1,10 @@
-# Tietokantasovelluksen esittelysivu
+﻿# Tietokantasovelluksen esittelysivu
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* Linkki sovellukseeni: http://swarttu.users.cs.helsinki.fi/Tsoha/
+* Linkki dokumentaatiooni: https://github.com/Mugeja/Tsoha-Bootstrap/blob/master/doc/Tsoha%20dokumentti%20viikko%201.pdf
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+Fuksipassi
