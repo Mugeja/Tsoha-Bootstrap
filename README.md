@@ -7,4 +7,5 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-Fuksipassi
+Fuksipassi. Helppo tapa tehdä ja ylläpitää fuksipassia joka vuosi tuleville fukseille, ei tarvitse enää kantaa mukana
+paperista fuksipassia.
