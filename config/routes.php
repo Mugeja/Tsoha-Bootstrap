@@ -10,8 +10,8 @@ $routes->get('/hiekkalaatikko', function() {
 $routes->get('/etusivu', function() {
     HelloWorldController::etusivu();
 });
-$routes->get('/game/1', function() {
-    HelloWorldController::tehtavat_show();
+$routes->get('/tehtavat', function() {
+    HelloWorldController::tehtavat();
 });
 
 $routes->get('/login', function() {

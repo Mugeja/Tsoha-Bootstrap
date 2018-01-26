@@ -15,8 +15,8 @@
     View::make('suunnitelmat/etusivu.html');
   }
 
-  public static function tehtavat_show(){
-    View::make('suunnitelmat/game_show.html');
+  public static function tehtavat(){
+    View::make('suunnitelmat/tehtavat.html');
   }
 
   public static function login(){
