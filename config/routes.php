@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-    HelloWorldController::index();
+    HelloWorldController::etusivu();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -14,6 +14,6 @@ $routes->get('/tehtavat', function() {
     HelloWorldController::tehtavat();
 });
 
-$routes->get('/login', function() {
-    HelloWorldController::login();
+$routes->get('/tehtavan_muokkaus', function() {
+    HelloWorldController::tehtavan_muokkaus();
 });

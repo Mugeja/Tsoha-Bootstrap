@@ -19,7 +19,7 @@
     View::make('suunnitelmat/tehtavat.html');
   }
 
-  public static function login(){
-    View::make('suunnitelmat/login.html');
+  public static function tehtavan_muokkaus(){
+    View::make('suunnitelmat/tehtavan_muokkaus.html');
   }
   }
