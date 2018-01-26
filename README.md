@@ -3,7 +3,7 @@
 Yleisiä linkkejä:
 
 * Linkki sovellukseeni: http://swarttu.users.cs.helsinki.fi/Tsoha/
-* Linkki dokumentaatiooni: https://github.com/Mugeja/Tsoha-Bootstrap/blob/master/doc/Tsoha%20dokumentti%20viikko%201.pdf
+* Linkki dokumentaatiooni: https://github.com/Mugeja/Tsoha-Bootstrap/blob/master/doc/Tsoha%20dokumentti%20viikko%202.pdf
 * Etusivu(kirjautuminen ja rekisteröityminen): http://swarttu.users.cs.helsinki.fi/Tsoha/
 * Listaus tehtävistä: http://swarttu.users.cs.helsinki.fi/Tsoha/tehtavat
 * Tehtävien muokkaus: http://swarttu.users.cs.helsinki.fi/Tsoha/tehtavan_muokkaus
