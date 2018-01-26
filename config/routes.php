@@ -1,19 +1,19 @@
 <?php
 
-  $routes->get('/', function() {
+$routes->get('/', function() {
     HelloWorldController::index();
-  });
+});
 
-  $routes->get('/hiekkalaatikko', function() {
+$routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
-  });
-$routes->get('/game', function() {
-  HelloWorldController::game_list();
+});
+$routes->get('/etusivu', function() {
+    HelloWorldController::etusivu();
 });
 $routes->get('/game/1', function() {
-  HelloWorldController::game_show();
+    HelloWorldController::tehtavat_show();
 });
 
 $routes->get('/login', function() {
-  HelloWorldController::login();
+    HelloWorldController::login();
 });

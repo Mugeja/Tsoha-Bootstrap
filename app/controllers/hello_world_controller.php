@@ -11,8 +11,8 @@
       // Testaa koodiasi tÃ¤Ã¤llÃ¤
       View::make('helloworld.html');
     }
-    public static function tehtavat_list(){
-    View::make('suunnitelmat/game_list.html');
+    public static function etusivu(){
+    View::make('suunnitelmat/etusivu.html');
   }
 
   public static function tehtavat_show(){
