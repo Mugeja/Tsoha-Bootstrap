@@ -7,5 +7,7 @@ salasana varchar(30) NOT NULL
 CREATE TABLE Tehtävä(
 id SERIAL PRIMARY KEY,
 nimi varchar(100) NOT NULL,
-suoritettu BOOLEAN DEFAULT FALSE
+kuvaus varchar(250) NOT NULL,
+hyväksyjä varchar(100),
+suoritettu varchar(10) NOT NULL
 );
