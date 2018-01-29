@@ -1,6 +1,6 @@
 CREATE TABLE Käyttäjä(
 id SERIAL PRIMARY KEY,
-nimi varchar(30) NOT NULL,
+nimi varchar(100) NOT NULL,
 salasana varchar(30) NOT NULL
 );
 
