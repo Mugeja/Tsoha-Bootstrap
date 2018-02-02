@@ -23,7 +23,7 @@
             <td><a href="{{base_path}}/tehtava/{{tehtava.id}}">{{tehtava.nimi}}</td>
             <td>{{tehtava.hyväksyjä}}</td>
             <td>{{tehtava.kuvaus}}</td>
-            {% if tehtava.suoritettu %}
+            {% if tehtava.suoritettu == 'kyllä' %}
     <label class="label label-success">suoritettu
         {% else %}
         <label class="label label-danger">suorittamatta
