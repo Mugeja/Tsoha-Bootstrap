@@ -21,8 +21,8 @@ class Tehtava extends BaseModel {
 
             $tehtavat[] = new Tehtava(['id' => $rivi['id'],
                 'nimi' => $rivi['nimi'],
-                'suoritettu' => $rivi['suoritettu'],
                 'hyväksyjä' => $rivi['hyväksyjä'],
+                'suoritettu' => $rivi['suoritettu'],
                 'kuvaus' => $rivi['kuvaus'],]);
         }
 

@@ -10,8 +10,8 @@
     <thead>
         <tr>
             <th>Nimi</th>
-            <th>Kuvaus</th>
             <th>Hyväksyjä</th>
+            <th>Kuvaus</th>
             <th>Suoritettu</th>
             <th></th>
         </tr>
@@ -23,15 +23,17 @@
             <td><a href="{{base_path}}/tehtava/{{tehtava.id}}">{{tehtava.nimi}}</td>
             <td>{{tehtava.hyväksyjä}}</td>
             <td>{{tehtava.kuvaus}}</td>
-            {% if tehtava.suoritettu == 'kyllä' %}
-    <label class="label label-success">suoritettu
-        {% else %}
-        <label class="label label-danger">suorittamatta
-            {% endif %}
-            </td>
-            <td><a class="btn btn-default btn-sm" href="{{base_path}}/tehtava/{{tehtava.id}}/edit">Muokkaa</a></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-            </table>
-            {% endblock %}
+            <td>
+                {% if tehtava.suoritettu == 'kyllä'%}
+                <label class="label label-success">suoritettu
+                    {% else %}
+                    <label class="label label-danger">kesken
+                        {% endif %}
+
+                        </td>
+                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/tehtava/{{tehtava.id}}/edit">Muokkaa</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        {% endblock %}

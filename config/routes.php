@@ -23,3 +23,7 @@ $routes->get('/kirjautuminen', function() {
 $routes->get('/tehtavat', function() {
     TehtavaController::index();
 });
+
+$routes->get('/tehtava/:id', function($id) {
+    TehtavaController::show($id);
+});
