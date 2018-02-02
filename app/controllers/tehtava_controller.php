@@ -23,11 +23,15 @@ class TehtavaController extends BaseController {
             'suoritettu' => $params['suoritettu']
         ));
 
-        Kint::dump($params);
+        //Kint::dump($params);
 
         $tehtava->save();
 
-        //Redirect::to('/tehtavat/' . $tehtava->id, array('message' => 'Tehtävä lisätty!'));
+        Redirect::to('/tehtavat/' . $tehtava->id, array('message' => 'Tehtävä lisätty!'));
+    }
+
+    public static function create() {
+        View::make('suunnitelmat/new.html');
     }
 
 }

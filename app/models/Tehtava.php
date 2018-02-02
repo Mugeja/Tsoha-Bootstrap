@@ -49,6 +49,8 @@ class Tehtava extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
         $rivi = $query->fetch();
+        //Kint::trace();
+        //Kint::dump($rivi);
         $this->id = $rivi['id'];
     }
 

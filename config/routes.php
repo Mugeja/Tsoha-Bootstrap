@@ -28,7 +28,7 @@ $routes->post('/tehtavat', function() {
     TehtavaController::store();
 });
 
-$routes->post('/tehtavat/new', function() {
+$routes->get('/tehtavat/new', function() {
     TehtavaController::create();
 });
 $routes->get('/tehtavat/:id', function($id) {
