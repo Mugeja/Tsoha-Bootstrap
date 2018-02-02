@@ -28,7 +28,7 @@ class TehtavaController extends BaseController {
 
         $tehtava->save();
 
-        Redirect::to('/tehtavat/' . $tehtava->id, array('message' => 'Tehtävä lisätty!'));
+        Redirect::to('/tehtavat/' . $tehtava->id);
     }
 
     public static function create() {
