@@ -45,5 +45,11 @@ class Tehtava extends BaseModel {
             return $tehtava;
         }
     }
+    public function save(){
+        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
+        $rivi = $query->fetch();
+        $this->id = $rivi['id'];
+    }
 
 }

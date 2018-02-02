@@ -24,6 +24,17 @@ $routes->get('/tehtavat', function() {
     TehtavaController::index();
 });
 
-$routes->get('/tehtava/:id', function($id) {
+$routes->post('/tehtavat', function() {
+    TehtavaController::store();
+});
+
+$routes->post('/tehtavat/new', function() {
+    TehtavaController::create();
+});
+$routes->get('/tehtavat/:id', function($id) {
     TehtavaController::show($id);
 });
+
+
+
+
