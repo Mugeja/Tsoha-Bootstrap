@@ -12,7 +12,8 @@ class TehtavaController extends BaseController {
     }
 
     public static function show($id) {
-        echo $id;
+        $tehtava = Tehtava::etsi($id);
+        View::make('suunnitelmat/esittely.html', array('tehtava' => $tehtava));
     }
 
     public static function store() {
