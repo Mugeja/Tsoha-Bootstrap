@@ -6,7 +6,7 @@ class Tehtava extends BaseModel {
 
     public function __construct($attributes = null) {
         parent::construct($attributes);
-      $this->validators = array('validate_name', 'validate_kuvaus', 'validate_suoritus');
+        $this->validators = array('validate_name', 'validate_description', 'validate_suoritus');
     }
 
     public static function tulostaTehtavat() {
@@ -46,7 +46,8 @@ class Tehtava extends BaseModel {
             return $tehtava;
         }
     }
-    public function save(){
+
+    public function save() {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
         $rivi = $query->fetch();
