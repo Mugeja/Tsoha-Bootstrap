@@ -12,10 +12,14 @@ class HelloWorldController extends BaseController {
     public static function sandbox() {
         // Testaa koodiasi tÃ¤Ã¤llÃ¤
 
-        $tehtavat = Tehtava::tulostaTehtavat();
-        $kaivo = Tehtava::etsi(1);
-        Kint::dump($kaivo);
-        Kint::dump($tehtavat);
+        $ponileikki = new Tehtava(array(
+            'name' => 'd',
+            'kuvaus' => 'vedä ponileikki tsohan assarin edessä',
+            'suoritettu' => 'kyllä'
+        ));
+        $errors = $ponileikki->errors();
+
+        Kint::dump($errors);
     }
 
     public static function etusivu() {

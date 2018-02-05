@@ -5,7 +5,8 @@ class Tehtava extends BaseModel {
     public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus;
 
     public function __construct($attributes = null) {
-        parent::__construct($attributes);
+        parent::construct($attributes);
+      $this->validators = array('validate_name', 'validate_kuvaus', 'validate_suoritus');
     }
 
     public static function tulostaTehtavat() {
