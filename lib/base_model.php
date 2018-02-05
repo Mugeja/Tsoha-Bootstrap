@@ -5,7 +5,8 @@
     protected $validators;
 
     public function __construct($attributes = null){
-      // Käydään assosiaatiolistan avaimet läpi
+        parent::construct($attributes);
+      $this->validators = array('validate_name', 'validate_kuvaus');
       foreach($attributes as $attribute => $value){
         // Jos avaimen niminen attribuutti on olemassa...
         if(property_exists($this, $attribute)){
@@ -24,6 +25,13 @@
       }
 
       return $errors;
+    }public function validitate_string_length($string, $length){
+        $errors = array();
+        if ($string == '' || $string == NULL){
+            $errors[] = 'Tyhjä vastaus';
+        }
+        if (strlen($string) < $length) {
+            $errors[] = 'Liian lyhyt vastaus';
+        }
     }
-
   }
