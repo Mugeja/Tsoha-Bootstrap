@@ -18,14 +18,15 @@ class BaseModel {
 
     public function errors() {
         // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
+        $validator_errors = array();
         $errors = array();
         $validators[] = validator_nimi;
         $validators[] = validator_kuvaus;
         $validators[] = validator_suoritus;
-        
+
         foreach ($this->validators as $validator) {
             // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
-            $validator_errors[]=$this->{$validator};
+            $validator_errors[] = $this->{$validator};
             $errors = array_merge($validator_errors, $errors);
         }
 
@@ -40,6 +41,7 @@ class BaseModel {
         if (strlen($string) < 5) {
             $errors[] = 'Liian lyhyt nimi';
         }
+        return $errors;
     }
 
     public function validitate_description($string) {
@@ -50,6 +52,7 @@ class BaseModel {
         if (strlen($string) < 10) {
             $errors[] = 'Liian lyhyt kuvaus';
         }
+        return $errors;
     }
 
     public function validitate_suoritus($string) {
@@ -57,5 +60,7 @@ class BaseModel {
         if (!($string == 'kyllä' || $string == 'ei')) {
             $errors[] = 'vastaa joko kyllä tai ei';
         }
+        return $errors;
     }
+
 }

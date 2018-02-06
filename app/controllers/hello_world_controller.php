@@ -13,7 +13,7 @@ class HelloWorldController extends BaseController {
         // Testaa koodiasi tÃ¤Ã¤llÃ¤
 
         $ponileikki = new Tehtava(array(
-            'name' => 'd',
+            'nimi' => 'd',
             'kuvaus' => 'vedä ponileikki tsohan assarin edessä',
             'suoritettu' => 'kyllä'
         ));

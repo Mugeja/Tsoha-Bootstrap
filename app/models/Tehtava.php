@@ -2,10 +2,18 @@
 
 class Tehtava extends BaseModel {
 
-    public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus;
+    public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus, $validators;
 
     public function __construct($attributes = null) {
-        parent::construct($attributes);
+
+        foreach ($attributes as $attribute => $value) {
+            // Jos avaimen niminen attribuutti on olemassa...
+            if (property_exists($this, $attribute)) {
+                // ... lisätään avaimen nimiseen attribuuttin siihen liittyvä arvo
+                $this->{$attribute} = $value;
+            }
+        }
+//parent::construct($attributes);
         $this->validators = array('validate_name', 'validate_description', 'validate_suoritus');
     }
 
