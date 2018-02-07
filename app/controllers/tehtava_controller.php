@@ -18,17 +18,23 @@ class TehtavaController extends BaseController {
 
     public static function store() {
         $params = $_POST;
-        $tehtava = new Tehtava(array(
+        $attributes = array(
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
             'suoritettu' => $params['suoritettu']
-        ));
+        );
 
-        //Kint::dump($params);
+        $tehtava = new Tehtava($attributes);
+        $errors = $tehtava->errors();
+        
+        if (count($errors) == 0) {
+            $tehtava->save();
+            Redirect::to('/tehtavat/' . $tehtava->id);
+        } else {
+            View::make('suunnitelmat/new.html');
+        }
 
         $tehtava->save();
-
-        Redirect::to('/tehtavat/' . $tehtava->id);
     }
 
     public static function create() {

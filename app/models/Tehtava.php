@@ -14,8 +14,24 @@ class Tehtava extends BaseModel {
             }
         }
 //parent::construct($attributes);
-        $this->validators = array('validate_name', 'validate_description', 'validate_suoritus');
+        $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
+    public function validoi_nimi() {
+        $errors = array();
+        $errors =$this->validoi_string($this->nimi, 5);
+        return $errors;
+    }
+    public function validoi_kuvaus() {
+        $errors = array();
+        $errors =$this->validoi_string($this->kuvaus, 10);
+        return $errors;
+    }
+    public function validoi_suoritus() {
+        $errors = array();
+        $errors =$this->validoi_boolean($this->suoritettu);
+        return $errors;
+    }
+    
 
     public static function tulostaTehtavat() {
         $query = DB::connection()->prepare('SELECT * FROM Tehtävä');

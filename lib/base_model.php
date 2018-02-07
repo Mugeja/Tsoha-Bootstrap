@@ -17,50 +17,34 @@ class BaseModel {
     }
 
     public function errors() {
-        // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
         $validator_errors = array();
         $errors = array();
-        $validators[] = validator_nimi;
-        $validators[] = validator_kuvaus;
-        $validators[] = validator_suoritus;
 
         foreach ($this->validators as $validator) {
-            // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
-            $validator_errors[] = $this->{$validator};
-            $errors = array_merge($validator_errors, $errors);
+            
+            $validator_errors[] = $this->{$validator}($this->kuvaus);
+            
         }
-
+        $errors = array_merge($validator_errors, $errors);
         return $errors;
     }
 
-    public function validitate_nimi($string) {
+    public function validoi_string($string, $length) {
         $errors = array();
         if ($string == '' || $string == NULL) {
-            $errors[] = 'Tyhjä nimi';
+            $errors[] = 'Tyhjä';
         }
-        if (strlen($string) < 5) {
-            $errors[] = 'Liian lyhyt nimi';
-        }
-        return $errors;
-    }
-
-    public function validitate_description($string) {
-        $errors = array();
-        if ($string == '' || $string == NULL) {
-            $errors[] = 'Tyhjä kuvaus';
-        }
-        if (strlen($string) < 10) {
-            $errors[] = 'Liian lyhyt kuvaus';
+        if (strlen($string) < $length) {
+            $errors[] = 'Liian lyhyt';
         }
         return $errors;
     }
-
-    public function validitate_suoritus($string) {
+    public function validoi_boolean($string){
         $errors = array();
         if (!($string == 'kyllä' || $string == 'ei')) {
-            $errors[] = 'vastaa joko kyllä tai ei';
+            $errors[] = 'vastaa kyllä tai ei';
         }
-        return $errors;
     }
 
+    
 }
