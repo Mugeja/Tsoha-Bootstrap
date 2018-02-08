@@ -16,22 +16,24 @@ class Tehtava extends BaseModel {
 //parent::construct($attributes);
         $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
+
     public function validoi_nimi() {
         $errors = array();
-        $errors =$this->validoi_string($this->nimi, 5);
+        $errors = $this->validoi_string($this->nimi, 5);
         return $errors;
     }
+
     public function validoi_kuvaus() {
         $errors = array();
-        $errors =$this->validoi_string($this->kuvaus, 10);
+        $errors = $this->validoi_string($this->kuvaus, 10);
         return $errors;
     }
+
     public function validoi_suoritus() {
         $errors = array();
-        $errors =$this->validoi_boolean($this->suoritettu);
+        $errors = $this->validoi_boolean($this->suoritettu);
         return $errors;
     }
-    
 
     public static function tulostaTehtavat() {
         $query = DB::connection()->prepare('SELECT * FROM Tehtävä');
@@ -70,6 +72,19 @@ class Tehtava extends BaseModel {
         $rivi = $query->fetch();
         //Kint::trace();
         //Kint::dump($rivi);
+        $this->id = $rivi['id'];
+    }
+
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
+        $rivi = $query->fetch();
+        $this->id = $rivi['id'];
+    }
+    public function delete() {
+        $query = DB::connection()->prepare('DELETE Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
+        $rivi = $query->fetch();
         $this->id = $rivi['id'];
     }
 

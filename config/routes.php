@@ -34,7 +34,16 @@ $routes->get('/tehtavat/new', function() {
 $routes->get('/tehtavat/:id', function($id) {
     TehtavaController::show($id);
 });
+$routes->get('/tehtava::id/edit', function($id){
+    TehtavaController::edit($id);
+});
 
+$routes->post('/tehtava/:id/muokkaa', function($id){
+    TehtavaController::update($id);
+});
 
+$routes->post('tehtava/:id/poista', function($id){
+    TehtavaController::destroy($id);
+});
 
 

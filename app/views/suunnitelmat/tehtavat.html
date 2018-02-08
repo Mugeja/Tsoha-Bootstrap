@@ -25,13 +25,13 @@
             <td>{{tehtava.kuvaus}}</td>
             <td>
                 {% if tehtava.suoritettu == 'kyllä'%}
-                <label class="label label-success">suoritettu
+                <label class="label label-success">suoritettu</label>
                     {% else %}
-                    <label class="label label-danger">kesken
+                    <label class="label label-danger">kesken</label>
                         {% endif %}
 
                         </td>
-                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/tehtava/{{tehtava.id}}/edit">Muokkaa</a></td>
+                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/tehtava/{{tehtava.id}}/muokkaa">Muokkaa</a></td>
                         </tr>
                         {% endfor %}
                         </tbody>

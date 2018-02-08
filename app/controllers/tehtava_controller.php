@@ -40,5 +40,40 @@ class TehtavaController extends BaseController {
     public static function create() {
         View::make('suunnitelmat/new.html');
     }
+    public static function edit($id){
+        $tehtava = Tehtava::etsi($id);
+        View::make('tehtava/muokkaa.html', array('attributes' => $tehtava));
+    }
+    
+    public static function update($id){
+        $params = $_POST;
+        $attributes = array(
+            'id' => $id,
+            'nimi' => $params['nimi'],
+            'kuvaus' => $params['kuvaus'],
+            'suoritettu' => $params['suoritettu']  
+        );
+        Kint::dump($params);
+        $tehtava = new Tehtava($attributes);
+        $errors = $game->errors();
+        
+      //  if(count($errors) > 0){
+   //
+   //         View::make('tehtava/muokkaa.html', array('errors' => $errors, 'attributes' => $attributes));
+     //   }   else {
+       //     $game->update();
+            
+       //     Redirect::to('/tehtava/' . $game->id, array('message' => 'Tehtava on muokattu onnistuneesti'));
+        //}
+        
+    }
+    
+    public static function destroy($id){
+        
+        $tehtava = new Tehtava(array('id' => $id));
+        $tehtava->destroy();
+        
+        Redirect::to('/tehtava', array('message' => 'Tehtava poistettu'));
+    }
 
 }

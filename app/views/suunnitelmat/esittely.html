@@ -1,27 +1,22 @@
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>{{tehtava.nimi}}</th>
-    </thead>
-    <thead>
-    <td>{{tehtava.kuvaus}}</td>
-</thead>
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+<h1>{{tehtava.nimi}}</h1>
+<p>
+     {{forms.destroy_button("#{base_path}/tehtava/#{tehtava.id}/destroy")}}
+    <a href="{{base_path}}/tehtava/{{tehtava.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+</p>
+
+<p>
+<li>Tehtävän kuvaus</li>    {{tehtava.kuvaus}}
+</p>
 {% if tehtava.suoritettu == 'kyllä'%}
-<label class="label label-success">suoritettu
-    <td>{{tehtava.hyväksyjä}}</td>
-    {% else %}
-    <label class="label label-danger">kesken
-        {% endif %}
-        <th></th>
-        </tr>
-        <thead
-    </thead><thead
-</thead><thead
-</thead><thead
-</thead>
-<th>Lisätään vielä erikseen pidempi kuvaus lyhyen kuvauksen lisäksi, sekä tyylittely</th>
+<label class="label label-success">suoritettu</label>
+<td>{{tehtava.hyväksyjä}}</td>
+{% else %}
+<label class="label label-danger">kesken</label>
+{% endif %}
+<p><a href="{{base_path}}/tehtavat">takaisin</p>
 
- <td><a href="{{base_path}}/tehtavat">takaisin</td>
-
-</table>
+{% endblock %}
