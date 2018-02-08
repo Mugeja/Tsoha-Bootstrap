@@ -2,11 +2,36 @@
 
 class Tehtava extends BaseModel {
 
-    public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus;
+    public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus, $validators;
 
     public function __construct($attributes = null) {
-        parent::__construct($attributes);
+
+        foreach ($attributes as $attribute => $value) {
+            // Jos avaimen niminen attribuutti on olemassa...
+            if (property_exists($this, $attribute)) {
+                // ... lisätään avaimen nimiseen attribuuttin siihen liittyvä arvo
+                $this->{$attribute} = $value;
+            }
+        }
+//parent::construct($attributes);
+        $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
+    public function validoi_nimi() {
+        $errors = array();
+        $errors =$this->validoi_string($this->nimi, 5);
+        return $errors;
+    }
+    public function validoi_kuvaus() {
+        $errors = array();
+        $errors =$this->validoi_string($this->kuvaus, 10);
+        return $errors;
+    }
+    public function validoi_suoritus() {
+        $errors = array();
+        $errors =$this->validoi_boolean($this->suoritettu);
+        return $errors;
+    }
+    
 
     public static function tulostaTehtavat() {
         $query = DB::connection()->prepare('SELECT * FROM Tehtävä');
@@ -38,7 +63,8 @@ class Tehtava extends BaseModel {
             return $tehtava;
         }
     }
-    public function save(){
+
+    public function save() {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
         $rivi = $query->fetch();
