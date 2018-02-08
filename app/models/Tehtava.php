@@ -25,7 +25,7 @@ class Tehtava extends BaseModel {
 
     public function validoi_kuvaus() {
         $errors = array();
-        $errors = $this->validoi_string($this->kuvaus, 10);
+        $errors = $this->validoi_string($this->kuvaus, 5);
         return $errors;
     }
 
@@ -80,6 +80,8 @@ class Tehtava extends BaseModel {
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
         $rivi = $query->fetch();
         $this->id = $rivi['id'];
+        
+        
     }
     public function delete() {
         $query = DB::connection()->prepare('DELETE Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');

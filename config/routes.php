@@ -34,15 +34,15 @@ $routes->get('/tehtavat/new', function() {
 $routes->get('/tehtavat/:id', function($id) {
     TehtavaController::show($id);
 });
-$routes->get('/tehtava::id/edit', function($id){
+$routes->get('/tehtavat/:id/muokkaa', function($id){
     TehtavaController::edit($id);
 });
 
-$routes->post('/tehtava/:id/muokkaa', function($id){
+$routes->post('/tehtavat/:id/muokkaa', function($id){
     TehtavaController::update($id);
 });
 
-$routes->post('tehtava/:id/poista', function($id){
+$routes->post('tehtavat/:id/poista', function($id){
     TehtavaController::destroy($id);
 });
 

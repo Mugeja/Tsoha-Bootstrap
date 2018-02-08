@@ -16,17 +16,14 @@ class BaseModel {
         }
     }
 
-    public function errors() {
-        $validator_errors = array();
-        $errors = array();
+   
+    public function errors(){
+      $errors = array();
+      foreach($this->validators as $validator){
+        $errors = array_merge($errors, $this->{$validator}());
+      }
 
-        foreach ($this->validators as $validator) {
-            
-            $validator_errors[] = $this->{$validator}($this->kuvaus);
-            
-        }
-        $errors = array_merge($validator_errors, $errors);
-        return $errors;
+      return $errors;
     }
 
     public function validoi_string($string, $length) {
@@ -44,6 +41,7 @@ class BaseModel {
         if (!($string == 'kyllä' || $string == 'ei')) {
             $errors[] = 'vastaa kyllä tai ei';
         }
+        return $errors;
     }
 
     
