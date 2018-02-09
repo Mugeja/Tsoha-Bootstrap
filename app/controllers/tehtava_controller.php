@@ -60,17 +60,17 @@ class TehtavaController extends BaseController {
 
             View::make('suunnitelmat/muokkaa.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {
-            $tehtava->update();
+            $tehtava->update($id);
 
 
-            Redirect::to('/suunnitelmat/' . $game->id, array('message' => 'Tehtava on muokattu onnistuneesti'));
+            Redirect::to('/tehtavat/' . $tehtava->id, array('message' => 'Tehtava on muokattu onnistuneesti'));
         }
     }
 
     public static function destroy($id) {
 
         $tehtava = new Tehtava(array('id' => $id));
-        $tehtava->destroy();
+        $tehtava->destroy($id);
 
         Redirect::to('/tehtava', array('message' => 'Tehtava poistettu'));
     }

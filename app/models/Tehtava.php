@@ -70,22 +70,18 @@ class Tehtava extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
         $rivi = $query->fetch();
-        //Kint::trace();
-        //Kint::dump($rivi);
         $this->id = $rivi['id'];
     }
 
-    public function update() {
-        $query = DB::connection()->prepare('UPDATE Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
-        $rivi = $query->fetch();
-        $this->id = $rivi['id'];
-        
-        
+    public function update($id) {
+        Kint::dump($id);
+        $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu) = (:nimi, :kuvaus, :suoritettu) WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
+
     }
-    public function delete() {
-        $query = DB::connection()->prepare('DELETE Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
+    public function delete($id) {
+        $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
+        $query->execute(array('id' => $id));
         $rivi = $query->fetch();
         $this->id = $rivi['id'];
     }
