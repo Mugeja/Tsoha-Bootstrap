@@ -16,8 +16,8 @@ $routes->get('/tehtavan_muokkaus', function() {
     HelloWorldController::tehtavan_muokkaus();
 });
 
-$routes->get('/kirjautuminen', function() {
-    HelloWorldController::kirjautuminen();
+$routes->get('/kirjaudu', function() {
+    HelloWorldController::kirjaudu();
 });
 
 $routes->get('/tehtavat', function() {
