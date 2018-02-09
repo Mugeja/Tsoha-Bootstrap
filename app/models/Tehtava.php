@@ -13,7 +13,7 @@ class Tehtava extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-//parent::construct($attributes);
+        //parent::construct($attributes);
         $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
 

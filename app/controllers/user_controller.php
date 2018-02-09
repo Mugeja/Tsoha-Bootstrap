@@ -1,6 +1,6 @@
 <?php
 
-require 'app/models/Tehtava.php';
+require 'app/models/User.php';
 
 class UserController extends BaseController {
 

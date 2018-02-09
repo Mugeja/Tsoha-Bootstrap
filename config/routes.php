@@ -16,9 +16,6 @@ $routes->get('/tehtavan_muokkaus', function() {
     HelloWorldController::tehtavan_muokkaus();
 });
 
-$routes->get('/kirjaudu', function() {
-    HelloWorldController::kirjaudu();
-});
 
 $routes->get('/tehtavat', function() {
     TehtavaController::index();
@@ -52,7 +49,7 @@ $routes->post('tehtavat/:id/poista', function($id){
 $routes->get('/kirjaudu', function(){
     UserController::login();
 });
-$routes->poist('/kirjaudu', function(){
+$routes->post('/kirjaudu', function(){
     UserController::handle_login();
 });
 
