@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Oletko varma että haluat poistaa tehtävän {{tehtävä.nimi}}</h1>
+
+
+<form method="post" action="{{base_path}}/tehtavat/{{attributes.id}}/poista">
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">Poista</button>
+    </div>
+    <p><a href="{{base_path}}/tehtavat/{{tehtava.id}}">takaisin</p>
+</form>

@@ -43,6 +43,10 @@ class TehtavaController extends BaseController {
         $tehtava = Tehtava::etsi($id);
         View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava));
     }
+    public static function varmistaPoisto($id){
+        $tehtava = Tehtava::etsi($id);
+        View::make('suunnitelmat/poista.html');
+    }
 
     public static function update($id) {
         $params = $_POST;
@@ -73,6 +77,10 @@ class TehtavaController extends BaseController {
         $tehtava->destroy($id);
 
         Redirect::to('/tehtava', array('message' => 'Tehtava poistettu'));
+    }
+    
+    public static function poistaVarmistus() {
+        View::make('suunnitelmat/new.html');
     }
 
 }
