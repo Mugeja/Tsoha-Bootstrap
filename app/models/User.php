@@ -1,9 +1,8 @@
 <?php
 
-
 class User extends BaseModel {
 
-    public $validators, $salasana, $kayttaja, $id;
+    public $validators, $salasana, $nimi, $id;
 
     public function __construct($attributes = null) {
 
@@ -15,7 +14,7 @@ class User extends BaseModel {
             }
         }
         //parent::construct($attributes);
-        $this->validators = array('validoi_kayttaja', 'validoi_salasana');
+        $this->validators = array('validoi_nimi', 'validoi_salasana');
     }
 
     public static function etsi($id) {
@@ -23,7 +22,7 @@ class User extends BaseModel {
         $query->execute(array('id' => $id));
         $rivi = $query->fetch();
         if ($rivi) {
-            $User= new User(array(
+            $User = new User(array(
                 'id' => $rivi['id'],
                 'nimi' => $rivi['nimi'],
                 'salasana' => $rivi['salasana'],
@@ -38,9 +37,9 @@ class User extends BaseModel {
         return $errors;
     }
 
-    public function validoi_kayttaja() {
+    public function validoi_nimi() {
         $errors = array();
-        $errors = $this->validoi_string($this->kayttaja, 2);
+        $errors = $this->validoi_string($this->nimi, 2);
         return $errors;
     }
 
@@ -48,8 +47,9 @@ class User extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE nimi = :username AND salasana = :password LIMIT 1');
         $query->execute(array('username' => $username, 'password' => $password));
         $rivi = $query->fetch();
-        $user = Self::etsi($rivi['id']);
 
+        $user = Self::etsi($rivi['id']);
+        Kint::dump($user);
         return $user;
     }
 
