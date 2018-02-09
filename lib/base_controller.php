@@ -1,6 +1,5 @@
 <?php
-
-require 'app/models/User.php';
+//mysteerivaatimus, tarkasta
 
 class BaseController {
 

@@ -12,14 +12,14 @@ class UserController extends BaseController {
         $params = $_POST;
 
         $user = User::authenticate($params['username'], $params['password']);
-
-        if (!$user) {
-            View::make('user/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
-        } else {
-            $_SESSION['user'] = $user->id;
-
-            Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
-        }
+        Kint::dump($user);
+   //     if (!$user) {
+//            View::make('suunnitelmat/muokkaa.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
+  //      } else {
+  //        $_SESSION['user'] = $user->id;
+//
+ //           Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
+   //     }
     }
 
 }

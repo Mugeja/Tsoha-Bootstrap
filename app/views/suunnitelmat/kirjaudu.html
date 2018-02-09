@@ -1,34 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Kirjaudu sisään</h1>
-
-  <!-- Kaikki lomakkeen elementit form-tagin sisään -->
-  <form method="post" action="{{base_path}}/kirjaudu">
+<h1>Kirjaudu sisään</h1>
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<!-- Kaikki lomakkeen elementit form-tagin sisään -->
+<form method="post" action="{{base_path}}/kirjaudu">
     <!-- Tekstikenttä käyttäjätunnukselle -->
     <div class="form-group">
-      <label>Käyttäjätunnus</label>
-      <input type="text" class="form-control" name="username" value="{{username}}">
+        <label>Käyttäjätunnus</label>
+        <input type="text" class="form-control" name="username" value="{{username}}">
     </div>
 
     <!-- Salasanakenttä salasanalle -->
     <div class="form-group">
-      <label>Salasana</label>
-      <input type="password" class="form-control" name="password">
+        <label>Salasana</label>
+        <input type="password" class="form-control" name="password">
     </div>
 
     <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
-  </form>
-  <h1> Eikö sinulla ole tunnuksia? Rekisteröidy tässä!</h1>
-  <form>
+</form>
+<h1> Eikö sinulla ole tunnuksia? Rekisteröidy tässä!</h1>
+<form>
     <div class="form-group">
-      <label>Käyttäjätunnus</label>
-      <input type="text" class="form-control">
+        <label>Käyttäjätunnus</label>
+        <input type="text" class="form-control">
     </div>
     <div class="form-group">
-      <label>Salasana</label>
-      <input type="password" class="form-control">
+        <label>Salasana</label>
+        <input type="password" class="form-control">
     </div>
 
     <button type="submit" class="btn btn-primary">Rekisteröidy</button>
-  </form>
+</form>
 {% endblock %}

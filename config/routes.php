@@ -43,6 +43,8 @@ $routes->post('/tehtavat/:id/muokkaa', function($id){
 $routes->get('tehtavat/:id/poista', function($id){
     TehtavaController::varmistaPoisto($id);
 });
+
+
 $routes->post('tehtavat/:id/poista', function($id){
     TehtavaController::destroy($id);
 });
