@@ -49,7 +49,6 @@ class User extends BaseModel {
         $rivi = $query->fetch();
 
         $user = Self::etsi($rivi['id']);
-        Kint::dump($user);
         return $user;
     }
 

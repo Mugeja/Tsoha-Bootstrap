@@ -21,7 +21,6 @@ class TehtavaController extends BaseController {
         $attributes = array(
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
-            'suoritettu' => $params['suoritettu']
         );
 
         $tehtava = new Tehtava($attributes);
@@ -29,9 +28,9 @@ class TehtavaController extends BaseController {
 
         if (count($errors) == 0) {
             $tehtava->save();
-            Redirect::to('/tehtavat/' . $tehtava->id);
+            Redirect::to('/tehtavat');
         } else {
-            View::make('suunnitelmat/new.html');
+            View::make('suunnitelmat/new.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
         }
     }
 
@@ -76,7 +75,7 @@ class TehtavaController extends BaseController {
         $tehtava = new Tehtava(array('id' => $id));
         $tehtava->destroy($id);
 
-        Redirect::to('/tehtava', array('message' => 'Tehtava poistettu'));
+        Redirect::to('/tehtavat', array('message' => 'Tehtava poistettu'));
     }
     
     public static function poistaVarmistus() {

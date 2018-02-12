@@ -4,7 +4,7 @@
 {% import "macros/forms.html" as forms %}
 <h1>{{tehtava.nimi}}</h1>
 <p>
-    <a href="{{base_path}}/tehtavat/{{tehtava.id}}/poista" class="btn btn-danger">Poista</a>
+     {{forms.destroy_button("#{base_path}/tehtavat/#{tehtava.id}/poista")}}
     <a href="{{base_path}}/tehtavat/{{tehtava.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
 </p>
 

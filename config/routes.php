@@ -38,14 +38,7 @@ $routes->get('/tehtavat/:id/muokkaa', function($id){
 $routes->post('/tehtavat/:id/muokkaa', function($id){
     TehtavaController::update($id);
 });
-
-//work in progress
-$routes->get('tehtavat/:id/poista', function($id){
-    TehtavaController::varmistaPoisto($id);
-});
-
-
-$routes->post('tehtavat/:id/poista', function($id){
+$routes->post('/tehtavat/:id/poista', function($id){
     TehtavaController::destroy($id);
 });
 $routes->get('/kirjaudu', function(){

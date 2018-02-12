@@ -13,8 +13,8 @@ class Tehtava extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-        //parent::construct($attributes);
-        $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
+        
+        $this->validators = array('validoi_nimi', 'validoi_kuvaus');
     }
 
     public function validoi_nimi() {
@@ -68,7 +68,7 @@ class Tehtava extends BaseModel {
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu) RETURNING id');
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu));
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => 'ei'));
         $rivi = $query->fetch();
         $this->id = $rivi['id'];
     }
@@ -79,11 +79,10 @@ class Tehtava extends BaseModel {
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
 
     }
-    public function delete($id) {
+    public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
         $query->execute(array('id' => $id));
-        $rivi = $query->fetch();
-        $this->id = $rivi['id'];
+     
     }
 
 }
