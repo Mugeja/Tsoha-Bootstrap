@@ -14,7 +14,7 @@ class Tehtava extends BaseModel {
             }
         }
         
-        $this->validators = array('validoi_nimi', 'validoi_kuvaus');
+        $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
 
     public function validoi_nimi() {
@@ -74,9 +74,8 @@ class Tehtava extends BaseModel {
     }
 
     public function update($id) {
-        Kint::dump($id);
-        $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu) = (:nimi, :kuvaus, :suoritettu) WHERE id = :id');
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
+        $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu, hyväksyjä) = (:nimi, :kuvaus, :suoritettu, :hyvaksyja) WHERE id = :id');
+        $query->execute(array('hyvaksyja' => $this->hyväksyjä,'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
 
     }
     public function destroy($id) {

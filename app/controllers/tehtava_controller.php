@@ -5,6 +5,7 @@ require 'app/models/Tehtava.php';
 class TehtavaController extends BaseController {
 
     public static function index() {
+        self::check_logged_in();
         // Haetaan kaikki pelit tietokannasta
         $tehtavat = Tehtava::tulostaTehtavat();
         // Renderöidään views/game kansiossa sijaitseva tiedosto index.html muuttujan $games datalla
@@ -12,6 +13,7 @@ class TehtavaController extends BaseController {
     }
 
     public static function show($id) {
+        self::check_logged_in();
         $tehtava = Tehtava::etsi($id);
         View::make('suunnitelmat/esittely.html', array('tehtava' => $tehtava));
     }
@@ -21,6 +23,7 @@ class TehtavaController extends BaseController {
         $attributes = array(
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
+            'suoritettu' => 'ei'
         );
 
         $tehtava = new Tehtava($attributes);
@@ -39,12 +42,9 @@ class TehtavaController extends BaseController {
     }
 
     public static function edit($id) {
+        self::check_logged_in();
         $tehtava = Tehtava::etsi($id);
         View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava));
-    }
-    public static function varmistaPoisto($id){
-        $tehtava = Tehtava::etsi($id);
-        View::make('suunnitelmat/poista.html');
     }
 
     public static function update($id) {
@@ -53,7 +53,8 @@ class TehtavaController extends BaseController {
             'id' => $id,
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
-            'suoritettu' => $params['suoritettu']
+            'suoritettu' => $params['suoritettu'],
+            'hyväksyjä' => $params['hyväksyjä']
         );
 
         $tehtava = new Tehtava($attributes);
@@ -66,7 +67,7 @@ class TehtavaController extends BaseController {
             $tehtava->update($id);
 
 
-            Redirect::to('/tehtavat/' . $tehtava->id, array('message' => 'Tehtava on muokattu onnistuneesti'));
+            Redirect::to('/tehtavat', array('message' => 'Tehtava on muokattu onnistuneesti'));
         }
     }
 
@@ -76,10 +77,6 @@ class TehtavaController extends BaseController {
         $tehtava->destroy($id);
 
         Redirect::to('/tehtavat', array('message' => 'Tehtava poistettu'));
-    }
-    
-    public static function poistaVarmistus() {
-        View::make('suunnitelmat/new.html');
     }
 
 }
