@@ -12,7 +12,7 @@ class UserController extends BaseController {
         $params = $_POST;
 
         $user = User::authenticate($params['username'], $params['password']);
-        
+
         if (!$user) {
             View::make('/suunnitelmat/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
         } else {
@@ -20,6 +20,11 @@ class UserController extends BaseController {
 
             Redirect::to('/tehtavat', array('message' => 'Tervetuloa takaisin ' . $user->nimi . '!'));
         }
+    }
+
+    public static function logout() {
+        $_SESSION['user'] = null;
+        Redirect::to('/', array('message' => 'Uloskirjautuminen onnistui'));
     }
 
 }

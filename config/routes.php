@@ -31,21 +31,24 @@ $routes->get('/tehtavat/new', function() {
 $routes->get('/tehtavat/:id', function($id) {
     TehtavaController::show($id);
 });
-$routes->get('/tehtavat/:id/muokkaa', function($id){
+$routes->get('/tehtavat/:id/muokkaa', function($id) {
     TehtavaController::edit($id);
 });
 
-$routes->post('/tehtavat/:id/muokkaa', function($id){
+$routes->post('/tehtavat/:id/muokkaa', function($id) {
     TehtavaController::update($id);
 });
-$routes->post('/tehtavat/:id/poista', function($id){
+$routes->post('/tehtavat/:id/poista', function($id) {
     TehtavaController::destroy($id);
 });
-$routes->get('/kirjaudu', function(){
+$routes->get('/kirjaudu', function() {
     UserController::login();
 });
-$routes->post('/kirjaudu', function(){
+$routes->post('/kirjaudu', function() {
     UserController::handle_login();
+});
+$routes->post('kirjaudu_ulos', function() {
+    UserController::logout();
 });
 
 
