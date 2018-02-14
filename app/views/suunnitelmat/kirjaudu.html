@@ -27,16 +27,18 @@
     <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
 </form>
 <h1> Eikö sinulla ole tunnuksia? Rekisteröidy tässä!</h1>
-<form>
+<form method="post" action="{{base_path}}/rekisteröidy">
     <div class="form-group">
-        <label>Käyttäjätunnus</label>
-        <input type="text" class="form-control">
+        <label>Käyttäjä</label>
+        <input type="text" name="kayttaja" class="form-control">
     </div>
     <div class="form-group">
         <label>Salasana</label>
-        <input type="password" class="form-control">
+        <input type="text" name="salasana" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+    </div>
 </form>
 {% endblock %}
