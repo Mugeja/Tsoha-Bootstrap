@@ -38,6 +38,7 @@ class BaseModel {
     }
     public function validoi_boolean($string){
         $errors = array();
+        $string = strtolower($string);
         if (!($string == 'kyllä' || $string == 'ei')) {
             $errors[] = 'vastaa kyllä tai ei';
         }

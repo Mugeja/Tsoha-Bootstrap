@@ -16,14 +16,32 @@ class User extends BaseModel {
         //parent::construct($attributes);
         $this->validators = array('validoi_nimi', 'validoi_salasana');
     }
+    public static function tulostaKayttajat() {
+        $query = DB::connection()->prepare('SELECT * FROM Käyttäjä');
+        $query->execute();
+        $rivit = $query->fetchAll();
+        $kayttajat = array();
+        foreach ($rivit as $rivi) {
+            $kayttajat[] = new Kayttaja(['id' => $rivi['id'],
+                'nimi' => $rivi['nimi'],
+                'salasana' => $rivi['salasana']]);
+        }
+        return $kayttajat;
+    }
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, salasana) VALUES (:nimi, :salasana) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana));
+        $rivi = $query->fetch();
+        $this->id = $rivi['id'];
+    }
+    
 
     public static function etsi($id) {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $rivi = $query->fetch();
         if ($rivi) {
-            $User = new User(array(
-                'id' => $rivi['id'],
+            $User = new User(array('id' => $rivi['id'],
                 'nimi' => $rivi['nimi'],
                 'salasana' => $rivi['salasana'],
             ));
@@ -33,7 +51,7 @@ class User extends BaseModel {
 
     public function validoi_salasana() {
         $errors = array();
-        $errors = $this->validoi_string($this->salasana, 10);
+        $errors = $this->validoi_string($this->salasana, 5);
         return $errors;
     }
 

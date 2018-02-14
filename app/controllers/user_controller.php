@@ -7,6 +7,22 @@ class UserController extends BaseController {
     public static function login() {
         View::make('suunnitelmat/kirjaudu.html');
     }
+    public static function store() {
+        $params = $_POST;
+        $attributes = array('nimi' => $params['nimi'],
+            'salasana' => $params['salasana']
+        );
+
+        $kayttaja = new User($attributes);
+        $errors = $kayttaja->errors();
+
+        if (count($errors) == 0) {
+            $kayttaja->save();
+            Redirect::to('/kirjaudu');
+        } else {
+            View::make('suunnitelmat/kirjaudu.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
+        }
+    }
 
     public static function handle_login() {
         $params = $_POST;
@@ -24,7 +40,8 @@ class UserController extends BaseController {
 
     public static function logout() {
         $_SESSION['user'] = null;
-        Redirect::to('/', array('message' => 'Uloskirjautuminen onnistui'));
+        Redirect::to('/kirjaudu', array('message' => 'Uloskirjautuminen onnistui'));
     }
+    
 
 }

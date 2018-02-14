@@ -24,6 +24,10 @@ $routes->get('/tehtavat', function() {
 $routes->post('/tehtavat', function() {
     TehtavaController::store();
 });
+$routes->post('/rekisteröidy', function() {
+    UserController::store();   
+});
+
 
 $routes->get('/tehtavat/new', function() {
     TehtavaController::create();
@@ -47,7 +51,7 @@ $routes->get('/kirjaudu', function() {
 $routes->post('/kirjaudu', function() {
     UserController::handle_login();
 });
-$routes->post('kirjaudu_ulos', function() {
+$routes->post('/kirjaudu_ulos', function() {
     UserController::logout();
 });
 

@@ -14,17 +14,17 @@
 <form method="post" action="{{base_path}}/tehtavat/{{attributes.id}}/muokkaa">
     <div class="form-group">
         <label>Nimi: {{attributes.nimi}}</label>
-        <input type="text" name="nimi" class="form-control">
+        <input type="text" name="nimi" value="{{attributes.nimi}}" class="form-control">
     </div>
 
     <div class="form-group">
         <label>Kuvaus: {{attributes.kuvaus}}</label>
-        <input type="text" name="kuvaus" class="form-control">
+        <input type="text" name="kuvaus" value="{{attributes.kuvaus}}" class="form-control">
     </div>
     
     <div class="form-group">
         <label>Suoritettu: {{attributes.suoritettu}}</label>
-        <input type="text" name="suoritettu" class="form-control">
+        <input type="text" name="suoritettu" value="{{attributes.suoritettu}}" class="form-control">
     </div>
     <div class="form-group">
         <label>Hyväksyjä: {{attributes.hyväksyjä}}</label>
