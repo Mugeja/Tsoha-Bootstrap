@@ -7,6 +7,13 @@ class UserController extends BaseController {
     public static function login() {
         View::make('suunnitelmat/kirjaudu.html');
     }
+
+    public static function kayttajat() {
+        self::check_logged_in();
+        $kayttajat = User::tulostaKayttajat();
+        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat));
+    }
+
     public static function store() {
         $params = $_POST;
         $attributes = array(
@@ -24,10 +31,7 @@ class UserController extends BaseController {
             View::make('suunnitelmat/kirjaudu.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
         }
     }
-    
-    public static function listaa_kayttajat(){
-        
-    }
+
 
     public static function handle_login() {
         $params = $_POST;
@@ -47,6 +51,5 @@ class UserController extends BaseController {
         $_SESSION['user'] = null;
         Redirect::to('/kirjaudu', array('message' => 'Uloskirjautuminen onnistui'));
     }
-    
 
 }

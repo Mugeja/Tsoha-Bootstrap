@@ -13,7 +13,6 @@ class User extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-        //parent::construct($attributes);
         $this->validators = array('validoi_nimi', 'validoi_salasana');
     }
     public static function tulostaKayttajat() {
@@ -22,8 +21,9 @@ class User extends BaseModel {
         $rivit = $query->fetchAll();
         $kayttajat = array();
         foreach ($rivit as $rivi) {
-            $kayttajat[] = new Kayttaja(['id' => $rivi['id'],
+            $kayttajat[] = new User(['id' => $rivi['id'],
                 'nimi' => $rivi['nimi'],
+                'status' => $rivi['status'],
                 'salasana' => $rivi['salasana']]);
         }
         return $kayttajat;
@@ -31,7 +31,6 @@ class User extends BaseModel {
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status)');
         $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status));
-
     }
     
 

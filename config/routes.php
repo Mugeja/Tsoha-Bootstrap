@@ -51,7 +51,7 @@ $routes->post('/kirjaudu_ulos', function() {
 UserController::logout();
 });
 $routes->get('/kayttajat', function(){
-UserController::login();
+UserController::kayttajat();
 });
 
 

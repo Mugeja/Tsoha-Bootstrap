@@ -1,31 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Nimi</th>
-            <th>Hyväksyjä</th>
-            <th>Kuvaus</th>
-            <th>Suoritettu</th>
+            <th>Status</th>
+            <th>Suoritettuja tehtäviä</th>
             <th></th>
         </tr>
     </thead>
 
     <tbody>
-        {% for tehtava in tehtavat%}
+        {% for kayttaja in kayttajat%}
         <tr>
-            <td><a href="{{base_path}}/tehtavat/{{tehtava.id}}">{{tehtava.nimi}}</td>
-            <td>{{tehtava.hyväksyjä}}</td>
-            <td>{{tehtava.kuvaus}}</td>
-            <td>
-                {% if tehtava.suoritettu == 'kyllä'%}
-                <label class="label label-success">suoritettu</label>
-                    {% else %}
-                    <label class="label label-danger">kesken</label>
-                        {% endif %}
+            <td>{{kayttaja.nimi}}</td>
+            <td>{{kayttaja.status}}</td>
 
-                        </td>
-                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/tehtavat/{{tehtava.id}}/muokkaa">Muokkaa</a></td>
-                        </tr>
+
                         {% endfor %}
                         </tbody>
                         </table>
-                        {% endblock %}F
+                        {% endblock %}
