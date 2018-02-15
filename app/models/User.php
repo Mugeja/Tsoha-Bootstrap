@@ -2,7 +2,7 @@
 
 class User extends BaseModel {
 
-    public $validators, $salasana, $nimi, $id;
+    public $validators, $salasana, $nimi, $id, $status;
 
     public function __construct($attributes = null) {
 
@@ -29,8 +29,8 @@ class User extends BaseModel {
         return $kayttajat;
     }
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana) VALUES (:nimi, :salasana)');
-        $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana));
+        $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status)');
+        $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status));
 
     }
     

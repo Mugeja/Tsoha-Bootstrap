@@ -12,7 +12,7 @@ class UserController extends BaseController {
         $attributes = array(
             'nimi' => $params['nimi'],
             'salasana' => $params['salasana'],
-            'status'=> $params['status']
+            'status' => 'fuksi'
         );
         $kayttaja = new User($attributes);
         $errors = $kayttaja->errors();
@@ -23,6 +23,10 @@ class UserController extends BaseController {
         } else {
             View::make('suunnitelmat/kirjaudu.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
         }
+    }
+    
+    public static function listaa_kayttajat(){
+        
     }
 
     public static function handle_login() {
