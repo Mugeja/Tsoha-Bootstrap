@@ -9,16 +9,17 @@ class UserController extends BaseController {
     }
     public static function store() {
         $params = $_POST;
-        $attributes = array('nimi' => $params['nimi'],
-            'salasana' => $params['salasana']
+        $attributes = array(
+            'nimi' => $params['nimi'],
+            'salasana' => $params['salasana'],
+            'status'=> $params['status']
         );
-
         $kayttaja = new User($attributes);
         $errors = $kayttaja->errors();
-
+        Kint::dump($errors);
         if (count($errors) == 0) {
             $kayttaja->save();
-            Redirect::to('/kirjaudu');
+            Redirect::to('/');
         } else {
             View::make('suunnitelmat/kirjaudu.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
         }

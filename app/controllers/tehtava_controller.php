@@ -6,9 +6,7 @@ class TehtavaController extends BaseController {
 
     public static function index() {
         self::check_logged_in();
-        // Haetaan kaikki pelit tietokannasta
         $tehtavat = Tehtava::tulostaTehtavat();
-        // Renderöidään views/game kansiossa sijaitseva tiedosto index.html muuttujan $games datalla
         View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
     }
 

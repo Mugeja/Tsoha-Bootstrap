@@ -29,10 +29,9 @@ class User extends BaseModel {
         return $kayttajat;
     }
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, salasana) VALUES (:nimi, :salasana) RETURNING id');
+        $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana) VALUES (:nimi, :salasana)');
         $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana));
-        $rivi = $query->fetch();
-        $this->id = $rivi['id'];
+
     }
     
 

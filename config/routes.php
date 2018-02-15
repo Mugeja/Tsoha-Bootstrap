@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-    HelloWorldController::etusivu();
+    UserController::login();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -9,26 +9,23 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/etusivu', function() {
-    HelloWorldController::etusivu();
+    UserController::login();
 });
 
 $routes->get('/tehtavan_muokkaus', function() {
     HelloWorldController::tehtavan_muokkaus();
 });
-
-
 $routes->get('/tehtavat', function() {
     TehtavaController::index();
 });
 
 $routes->post('/tehtavat', function() {
     TehtavaController::store();
-});
+});             
 $routes->post('/rekisteröidy', function() {
+    Kint::dump($user_logged_in());
     UserController::store();   
 });
-
-
 $routes->get('/tehtavat/new', function() {
     TehtavaController::create();
 });
