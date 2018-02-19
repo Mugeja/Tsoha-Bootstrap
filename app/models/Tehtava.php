@@ -75,12 +75,10 @@ class Tehtava extends BaseModel {
     public function update($id) {
         $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu, hyväksyjä) = (:nimi, :kuvaus, :suoritettu, :hyvaksyja) WHERE id = :id');
         $query->execute(array('hyvaksyja' => $this->hyväksyjä,'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
-
     }
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
         $query->execute(array('id' => $id));
-     
     }
 
 }
