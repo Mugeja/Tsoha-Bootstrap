@@ -39,7 +39,8 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="http://swarttu.users.cs.helsinki.fi/Tsoha/tehtavat">Omat tehtävät</a></li>
+                        <li><a href="{{base_path}}/tehtavat">Omat tehtävät</a></li>
+                        <li><a href="{{base_path}}/kayttajat">Selaa käyttäjiä</a></li>
                     </ul>
                     {% if user_logged_in %}
                     <form class="navbar-form navbar-right" method="post" action="{{base_path}}/kirjaudu_ulos">

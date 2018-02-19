@@ -11,7 +11,7 @@
       </div>
     {% endif %}
 
-<form method="post" action="{{base_path}}/tehtavat/{{attributes.id}}/muokkaa">
+<form method="post" action="{{base_path}}/kayttajat/{{kayttaja.id}}/muokkaa">
     <div class="form-group">
         (väh 5 merkkiä pitkä)
         <label>Nimi: {{attributes.nimi}}</label>
@@ -19,22 +19,18 @@
     </div>
 
     <div class="form-group">
-        <label>Kuvaus: {{attributes.kuvaus}}</label>
-        <input type="text" name="kuvaus" value="{{attributes.kuvaus}}" class="form-control">
+        <label>Kuvaus: {{attributes.salasana}}</label>
+        <input type="text" name="kuvaus" value="{{attributes.salasana}}" class="form-control">
     </div>
     
     <div class="form-group">
-        <label>Suoritettu: {{attributes.suoritettu}}</label>
-        <input type="text" name="suoritettu" value="{{attributes.suoritettu}}" class="form-control">
-    </div>
-    <div class="form-group">
-        <label>Hyväksyjä: {{attributes.hyväksyjä}}</label>
-        <input type="text" name="hyväksyjä" class="form-control">
+        <label>Suoritettu: {{attributes.status}}</label>
+        <input type="text" name="suoritettu" value="{{attributes.status}}" class="form-control">
     </div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
-    <p><a href="{{base_path}}/tehtavat">takaisin</p>
+    <p><a href="{{base_path}}/kayttajat">takaisin</p>
 </form>
 {% endblock %}

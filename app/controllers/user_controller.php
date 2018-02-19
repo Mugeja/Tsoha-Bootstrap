@@ -51,5 +51,30 @@ class UserController extends BaseController {
         $_SESSION['user'] = null;
         Redirect::to('/kirjaudu', array('message' => 'Uloskirjautuminen onnistui'));
     }
+    public static function edit($id) {
+        self::check_logged_in();
+        $user= User::etsi($id);
+        View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user));
+    }
+    public static function update($id) {
+        $params = $_POST;
+        $attributes = array(
+            'id' => $id,
+            'nimi' => $params['nimi'],
+            'salasana' => $params['salasana'],
+            'status' => $params['status']
+        );
+
+        $user= new User($attributes);
+        $errors = $user->errors();
+
+        if (count($errors) > 0) {
+
+            View::make('suunnitelmat/kayttaja_muokkaus.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            $user->update($id);
+            Redirect::to('/tehtavat', array('message' => 'Tehtava on muokattu onnistuneesti'));
+        }
+    }
 
 }

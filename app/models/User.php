@@ -67,5 +67,13 @@ class User extends BaseModel {
         $user = Self::etsi($rivi['id']);
         return $user;
     }
+    public function update($id) {
+        $query = DB::connection()->prepare('UPDATE Käyttäjä SET (nimi, salasana, status) = (:nimi, :salasana, :status,) WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi,'salasana' => $this->salasana, 'status' => $this->status, 'id' => $id));
+    }
+    public function destroy($id) {
+        $query = DB::connection()->prepare('DELETE FROM Käyttäjä WHERE id = :id');
+        $query->execute(array('id' => $id));
+    }
 
 }
