@@ -42,16 +42,20 @@ class TehtavaController extends BaseController {
     public static function edit($id) {
         self::check_logged_in();
         $tehtava = Tehtava::etsi($id);
-        View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava));
+        $lista = array();
+        $lista[] = 'ei';
+        $lista[] = 'kyllä';
+        View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava, 'lista' => $lista));
     }
 
     public static function update($id) {
         $params = $_POST;
+        $vastaus = $params['vastaus'];
         $attributes = array(
             'id' => $id,
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
-            'suoritettu' => $params['suoritettu'],
+            'suoritettu' => $vastaus,
             'hyväksyjä' => $params['hyväksyjä']
         );
 
