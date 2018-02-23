@@ -15,6 +15,10 @@ class User extends BaseModel {
         }
         $this->validators = array('validoi_nimi', 'validoi_salasana');
     }
+    public static function getID(){
+        return $this->id;
+    }
+
     public static function tulostaKayttajat() {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä');
         $query->execute();
@@ -25,6 +29,7 @@ class User extends BaseModel {
                 'nimi' => $rivi['nimi'],
                 'status' => $rivi['status'],
                 'salasana' => $rivi['salasana']]);
+            
         }
         return $kayttajat;
     }

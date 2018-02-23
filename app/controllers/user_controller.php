@@ -11,7 +11,12 @@ class UserController extends BaseController {
     public static function kayttajat() {
         self::check_logged_in();
         $kayttajat = User::tulostaKayttajat();
-        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat));
+        $count = array();
+        foreach ($kayttajat as $kayttaja) {
+            $count = Tehtava::laske_tehtavat($kayttaja::getID());
+        }
+
+        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat, 'count' => $count));
     }
 
     public static function store() {
@@ -32,7 +37,6 @@ class UserController extends BaseController {
         }
     }
 
-
     public static function handle_login() {
         $params = $_POST;
 
@@ -51,11 +55,13 @@ class UserController extends BaseController {
         $_SESSION['user'] = null;
         Redirect::to('/kirjaudu', array('message' => 'Uloskirjautuminen onnistui'));
     }
+
     public static function edit($id) {
         self::check_logged_in();
-        $user= User::etsi($id);
+        $user = User::etsi($id);
         View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user));
     }
+
     public static function update($id) {
         $params = $_POST;
         $attributes = array(
@@ -65,7 +71,7 @@ class UserController extends BaseController {
             'status' => $params['status']
         );
 
-        $user= new User($attributes);
+        $user = new User($attributes);
         $errors = $user->errors();
 
         if (count($errors) > 0) {
