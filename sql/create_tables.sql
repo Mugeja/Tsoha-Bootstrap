@@ -10,5 +10,5 @@ id SERIAL PRIMARY KEY,
 nimi varchar(100) NOT NULL,
 kuvaus varchar(250) NOT NULL,
 hyväksyjä varchar(100),
-suoritettu varchar(10) NOT NULL
+suoritettu varchar(10)NOT NULL
 );

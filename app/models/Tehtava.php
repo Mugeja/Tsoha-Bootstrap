@@ -13,7 +13,7 @@ class Tehtava extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-        
+
         $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
     }
 
@@ -33,6 +33,13 @@ class Tehtava extends BaseModel {
         $errors = array();
         $errors = $this->validoi_boolean($this->suoritettu);
         return $errors;
+    }
+
+    public function laske_tehtavat($id) { 
+        $query = DB::connection()->prepare('SELECT COUNT(*) FROM Tehtävä WHERE tehtävä.suoritettu = :suoriettu ');
+        $query->execute(array('id' => $id, 'suoritettu' => 'kyllä'));
+        $count = $query->fetch();
+        return $count;
     }
 
     public static function tulostaTehtavat() {
@@ -69,13 +76,13 @@ class Tehtava extends BaseModel {
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu)');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => 'ei'));
-
     }
 
     public function update($id) {
         $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu, hyväksyjä) = (:nimi, :kuvaus, :suoritettu, :hyvaksyja) WHERE id = :id');
-        $query->execute(array('hyvaksyja' => $this->hyväksyjä,'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
+        $query->execute(array('hyvaksyja' => $this->hyväksyjä, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
     }
+
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
         $query->execute(array('id' => $id));
