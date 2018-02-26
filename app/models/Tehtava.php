@@ -43,7 +43,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function tulostaTehtavat() {
-        $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id= :kayttaja_id');
+        $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id= :kayttaja_id ORDER BY T.nimi');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('kayttaja_id' => $kayttaja_id));
@@ -60,7 +60,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT T.nimi, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on käyttäjä_id = :käyttajä_id AND tehtävä_id = :id');
+        $query = DB::connection()->prepare('SELECT T.nimi, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on käyttäjä_id = :käyttajä_id AND tehtävä_id = :id LIMIT 1');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('id' => $id, 'käyttäjä_id' => $kayttaja_id));
@@ -68,7 +68,7 @@ class Tehtava extends BaseModel {
 
         if ($rivi) {
             $tehtava = new Tehtava(array(
-                'id' => $rivi['id'],
+                'id' => $id,
                 'nimi' => $rivi['nimi'],
                 'suoritettu' => $rivi['suoritettu'],
                 'hyväksyjä' => $rivi['hyväksyjä'],
