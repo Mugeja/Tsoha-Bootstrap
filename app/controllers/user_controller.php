@@ -13,7 +13,7 @@ class UserController extends BaseController {
         $kayttajat = User::tulostaKayttajat();
         $count = array();
         foreach ($kayttajat as $kayttaja) {
-            $count = Tehtava::laske_tehtavat($kayttaja::getID());
+            //$count = Tehtava::laske_tehtavat($kayttaja::get ID());
         }
 
         View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat, 'count' => $count));

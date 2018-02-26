@@ -8,7 +8,15 @@ status varchar(30) NOT NULL
 CREATE TABLE Tehtävä(
 id SERIAL PRIMARY KEY,
 nimi varchar(100) NOT NULL,
-kuvaus varchar(250) NOT NULL,
+status varchar(100),
+tila varchar(10)
+);
+
+CREATE TABLE Käyttäjän_tehtävät(
+id SERIAL PRIMARY KEY,
+käyttäjä_id INTEGER,
+tehtävä_id INTEGER,
+kuvaus varchar(250),
 hyväksyjä varchar(100),
-suoritettu varchar(10) NOT NULL
+suoritettu varchar(100) NOT NULL
 );
