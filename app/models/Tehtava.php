@@ -2,7 +2,7 @@
 
 class Tehtava extends BaseModel {
 
-    public $id, $nimi, $suoritettu, $hyväksyjä, $kuvaus, $validators;
+    public $id, $nimi, $tila, $status, $suoritettu, $kuvaus, $hyväksyjä, $validators;
 
     public function __construct($attributes = null) {
 
@@ -14,28 +14,28 @@ class Tehtava extends BaseModel {
             }
         }
 
-        $this->validators = array('validoi_nimi', 'validoi_kuvaus', 'validoi_suoritus');
+        $this->validators = array('validoi_nimi', 'validoi_tila', 'validoi_status');
     }
 
     public function validoi_nimi() {
         $errors = array();
-        $errors = $this->validoi_string($this->nimi, 5);
+        $errors = $this->validoi_string($this->nimi, 2);
         return $errors;
     }
 
-    public function validoi_kuvaus() {
+    public function validoi_status() {
         $errors = array();
-        $errors = $this->validoi_string($this->kuvaus, 5);
+        $errors = $this->validoi_string($this->status, 2);
         return $errors;
     }
 
-    public function validoi_suoritus() {
+    public function validoi_tila() {
         $errors = array();
-        $errors = $this->validoi_boolean($this->suoritettu);
+        $errors = $this->validoi_string($this->tila, 2);
         return $errors;
     }
 
-    public function laske_tehtavat($id) { 
+    public function laske_tehtavat($id) {
         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Tehtävä WHERE tehtävä.suoritettu = :suoriettu ');
         $query->execute(array('id' => $id, 'suoritettu' => 'kyllä'));
         $count = $query->fetch();
@@ -43,7 +43,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function tulostaTehtavat() {
-        $query = DB::connection()->prepare('SELECT T.*, K.status, K.kuvaus, K.hyväksyjä FROM Tehtävä T left outer join Käyttäjän_tehtävät K on (T.ID = K.tehtävä_id AND K.käyttäjä_id= :kayttaja_id)');
+        $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id= :kayttaja_id');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('kayttaja_id' => $kayttaja_id));
@@ -60,9 +60,12 @@ class Tehtava extends BaseModel {
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Tehtävä WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
+        $query = DB::connection()->prepare('SELECT T.nimi, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on käyttäjä_id = :käyttajä_id AND tehtävä_id = :id');
+        $kayttaja = UserController::get_user_logged_in();
+        $kayttaja_id = $kayttaja->id;
+        $query->execute(array('id' => $id, 'käyttäjä_id' => $kayttaja_id));
         $rivi = $query->fetch();
+
         if ($rivi) {
             $tehtava = new Tehtava(array(
                 'id' => $rivi['id'],
@@ -76,8 +79,8 @@ class Tehtava extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, kuvaus, suoritettu) VALUES (:nimi, :kuvaus, :suoritettu)');
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => 'ei'));
+        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, status, tila) VALUES (:nimi, :status, :tila)');
+        $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila));
     }
 
     public function update($id) {

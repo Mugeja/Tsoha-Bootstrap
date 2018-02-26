@@ -13,13 +13,18 @@
 
 <form method="post" action="{{base_path}}/tehtavat">
     <div class="form-group">
-        <label>Nimi (väh 5 merkkiä pitkä)</label>
+        <label>Nimi (väh 2 merkkiä pitkä, itse tehtävä)</label>
         <input type="text" name="nimi" class="form-control">
     </div>
 
     <div class="form-group">
-        <label>Kuvaus (väh 5 merkkiä pitkä)</label>
-        <input type="text" name="kuvaus" class="form-control">
+        <label>tila (väh 2 merkkiä pitkä, aktiivinen/levossa)</label>
+        <input type="text" name="tila" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>status(väh 2 merkkiä pitkä, kenelle tehtävät on)</label>
+        <input type="text" name="status" class="form-control">
     </div>
 
     <div class="form-group">

@@ -7,6 +7,7 @@ class TehtavaController extends BaseController {
     public static function index() {
         self::check_logged_in();
         $tehtavat = Tehtava::tulostaTehtavat();
+        Kint::dump($tehtavat);
         View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
     }
 
@@ -20,8 +21,8 @@ class TehtavaController extends BaseController {
         $params = $_POST;
         $attributes = array(
             'nimi' => $params['nimi'],
-            'kuvaus' => $params['kuvaus'],
-            'suoritettu' => 'ei'
+            'status' => $params['status'],
+            'tila' => $params['tila']
         );
 
         $tehtava = new Tehtava($attributes);
