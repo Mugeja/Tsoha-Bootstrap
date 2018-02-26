@@ -36,6 +36,7 @@ class BaseModel {
         }
         return $errors;
     }
+
     public function validoi_boolean($string){
         $errors = array();
         $string = strtolower($string);

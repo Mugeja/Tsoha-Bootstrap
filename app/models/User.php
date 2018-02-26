@@ -13,7 +13,7 @@ class User extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-        $this->validators = array('validoi_nimi', 'validoi_salasana');
+        $this->validators = array('validoi_nimi', 'validoi_salasana', 'tarkista_kayttaja');
     }
 
     public static function tulostaKayttajat() {
@@ -60,6 +60,17 @@ class User extends BaseModel {
         $errors = $this->validoi_string($this->nimi, 2);
         return $errors;
     }
+    public function tarkista_kayttaja() {
+        $errors = array();
+        $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE nimi = :nimi');
+        $query->execute(array('nimi' => $this->nimi));
+        $rivit = $query->fetchAll();
+        if ($rivit) {
+            $errors[] = "Käyttäjänimi käytössä";
+        }
+        return $errors;
+    }
+    
 
     public static function authenticate($username, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE nimi = :username AND salasana = :password LIMIT 1');

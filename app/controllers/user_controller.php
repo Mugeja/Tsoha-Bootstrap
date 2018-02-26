@@ -28,12 +28,11 @@ class UserController extends BaseController {
         );
         $kayttaja = new User($attributes);
         $errors = $kayttaja->errors();
-        Kint::dump($errors);
         if (count($errors) == 0) {
             $kayttaja->save();
             Redirect::to('/');
         } else {
-            View::make('suunnitelmat/kirjaudu.html', array('errors' => $errors, 'message' => 'Virhe lisätessä'));
+            View::make('suunnitelmat/kirjaudu.html', array('error' => $errors, 'message' => 'Virhe lisätessä'));
         }
     }
 
