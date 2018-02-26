@@ -1,57 +1,65 @@
 <?php
 
 $routes->get('/', function() {
-UserController::login();
+    UserController::login();
 });
 
 $routes->get('/hiekkalaatikko', function() {
-HelloWorldController::sandbox();
+    HelloWorldController::sandbox();
 });
 
 $routes->get('/etusivu', function() {
-UserController::login();
+    UserController::login();
 });
 
 $routes->get('/tehtavan_muokkaus', function() {
-HelloWorldController::tehtavan_muokkaus();
+    HelloWorldController::tehtavan_muokkaus();
 });
 $routes->get('/tehtavat', function() {
-TehtavaController::index();
+    TehtavaController::index();
 });
 
 $routes->post('/tehtavat', function() {
-TehtavaController::store();
+    TehtavaController::store();
 });
 $routes->post('/rekisteroidy', function() {
-UserController::store();
+    UserController::store();
 });
 $routes->get('/tehtavat/new', function() {
-TehtavaController::create();
+    TehtavaController::create();
 });
 $routes->get('/tehtavat/:id', function($id) {
-TehtavaController::show($id);
+    TehtavaController::show($id);
 });
 $routes->get('/tehtavat/:id/muokkaa', function($id) {
-TehtavaController::edit($id);
+    TehtavaController::edit($id);
 });
 
 $routes->post('/tehtavat/:id/muokkaa', function($id) {
-TehtavaController::update($id);
+    TehtavaController::update($id);
 });
+$routes->get('/kayttajat/:id/muokkaa', function($id) {
+    UserController::edit($id);
+});
+$routes->post('/kayttajat/:id/muokkaa', function($id) {
+    UserController::update($id);
+});
+
 $routes->post('/tehtavat/:id/poista', function($id) {
-TehtavaController::destroy($id);
+    TehtavaController::destroy($id);
 });
 $routes->get('/kirjaudu', function() {
-UserController::login();
+    UserController::login();
 });
 $routes->post('/kirjaudu', function() {
-UserController::handle_login();
+    UserController::handle_login();
 });
 $routes->post('/kirjaudu_ulos', function() {
-UserController::logout();
+    UserController::logout();
 });
-$routes->get('/kayttajat', function(){
-UserController::kayttajat();
+$routes->get('/kayttajat', function() {
+    UserController::kayttajat();
 });
+
 
 

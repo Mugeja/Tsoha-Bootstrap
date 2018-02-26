@@ -8,6 +8,5 @@ INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Osta tuutorivastaavalle kalj
 'tuutori', 'ei');
 
 INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 1, 'yksi', 'kyllä', 'vastaava');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 2, 'kaksi', 'ei');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (3, 3, 'kolme', 'ei');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (4, 4, 'neljä', 'ei');
+INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (1, 2, 'kaksi', 'ei');
+INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 1, 'kolme', 'ei');

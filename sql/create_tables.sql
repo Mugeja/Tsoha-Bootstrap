@@ -14,8 +14,8 @@ tila varchar(255)
 
 CREATE TABLE Käyttäjän_tehtävät(
 id SERIAL PRIMARY KEY,
-käyttäjä_id INTEGER,
-tehtävä_id INTEGER,
+käyttäjä_id INTEGER REFERENCES Käyttäjä(id),
+tehtävä_id INTEGER REFERENCES Tehtävä(id),
 kuvaus varchar(255),
 hyväksyjä varchar(255),
 suoritettu varchar(255) NOT NULL

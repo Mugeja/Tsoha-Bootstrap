@@ -60,19 +60,19 @@ class Tehtava extends BaseModel {
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT T.nimi, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on käyttäjä_id = :käyttajä_id AND tehtävä_id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND K.käyttäjä_id = :käyttäjä_id LIMIT 1');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
-        $query->execute(array('id' => $id, 'käyttäjä_id' => $kayttaja_id));
+        $query->execute(array('tehtava_id' => $id, 'kayttaja_id' => $kayttaja_id));
         $rivi = $query->fetch();
 
         if ($rivi) {
             $tehtava = new Tehtava(array(
                 'id' => $id,
-                'nimi' => $rivi['nimi'],
                 'suoritettu' => $rivi['suoritettu'],
                 'hyväksyjä' => $rivi['hyväksyjä'],
                 'kuvaus' => $rivi['kuvaus'],
+                'nimi' => $rivi['nimi']
             ));
             return $tehtava;
         }

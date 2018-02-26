@@ -12,11 +12,11 @@ class UserController extends BaseController {
         self::check_logged_in();
         $kayttajat = User::tulostaKayttajat();
         $count = array();
-        foreach ($kayttajat as $kayttaja) {
-            $count = Tehtava::laske_tehtavat($kayttaja->id);
-        }
+      //  foreach ($kayttajat as $kayttaja) {
+      //      $count = Tehtava::laske_tehtavat($kayttaja->id);
+      // }
 
-        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat, 'count' => $count));
+        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
     public static function store() {
