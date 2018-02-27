@@ -31,9 +31,20 @@
         </select>
     </div>
 
+
     <div class="form-group">
         <label>Hyväksyjä: {{attributes.hyväksyjä}}</label>
         <input type="text" name="hyväksyjä" class="form-control">
+    </div>
+    
+    <p>Ainoastaan tuutorivastaavan muokattavissa</p>
+    <div class="form-group">
+        <label>Tila: {{attributes.tila}}</label>
+        <input type="text" name="tila" value="{{attributes.tila}}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Status: {{attributes.status}}</label>
+        <input type="text" name="status" value="{{attributes.status}}" class="form-control">
     </div>
 
     <div class="form-group">

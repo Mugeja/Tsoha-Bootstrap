@@ -51,7 +51,7 @@ class User extends BaseModel {
 
     public function validoi_salasana() {
         $errors = array();
-        $errors = $this->validoi_string($this->salasana, 5);
+        $errors = $this->validoi_string($this->salasana, 2);
         return $errors;
     }
 

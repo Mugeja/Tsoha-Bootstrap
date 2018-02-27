@@ -64,29 +64,41 @@ class Tehtava extends BaseModel {
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('tehtava_id' => $id, 'kayttaja_id' => $kayttaja_id));
-        $rivi = $query->fetch();
+        $row = $query->fetch();
 
-        if ($rivi) {
+        if ($row) {
             $tehtava = new Tehtava(array(
                 'id' => $id,
-                'suoritettu' => $rivi['suoritettu'],
-                'hyväksyjä' => $rivi['hyväksyjä'],
-                'kuvaus' => $rivi['kuvaus'],
-                'nimi' => $rivi['nimi']
+                'suoritettu' => $row['suoritettu'],
+                'hyväksyjä' => $row['hyväksyjä'],
+                'kuvaus' => $row['kuvaus'],
+                'nimi' => $row['nimi']
             ));
             return $tehtava;
         }
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, status, tila) VALUES (:nimi, :status, :tila)');
+        $kayttaja = UserController::get_user_logged_in();
+        $kayttaja_id = $kayttaja->id;
+        $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, status, tila) VALUES (:nimi, :status, :tila) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila));
-    }
+        $row = $query->fetch();
+        $this->id = $row['id'];
+        kint::dump($this->id);
+        $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
+        $query2->execute(array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $this->id, 'suoritettu' => 'ei'));
+    }   
 
     public function update($id) {
-        $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, kuvaus, suoritettu, hyväksyjä) = (:nimi, :kuvaus, :suoritettu, :hyvaksyja) WHERE id = :id');
-        $query->execute(array('hyvaksyja' => $this->hyväksyjä, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'suoritettu' => $this->suoritettu, 'id' => $id));
-    }
+        $kayttaja = UserController::get_user_logged_in();
+        $kayttaja_id = $kayttaja->id;
+        $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, status, tila) = (:nimi, :status, :tila) WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila, 'id' => $id));
+        $query2 = DB::connection()->prepare('UPDATE Käyttäjän_tehtävät SET (suoritettu, kuvaus, hyväksyjä) =(:suoritettu, :kuvaus, :hyvaksyja) WHERE käyttäjä_id = :kayttaja_id AND tehtävä_id = :tehtava_id');
+        $query2->execute((array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $id, 'suoritettu' => $this->suoritettu, 'kuvaus' => $this->kuvaus, 'hyvaksyja' => $this->hyväksyjä)));
+        
+    }   
 
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
