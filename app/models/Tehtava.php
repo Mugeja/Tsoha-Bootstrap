@@ -43,7 +43,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function tulostaTehtavat() {
-        $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id= :kayttaja_id ORDER BY T.nimi');
+        $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id = :kayttaja_id ORDER BY T.nimi');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('kayttaja_id' => $kayttaja_id));
@@ -60,7 +60,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND K.käyttäjä_id = :käyttäjä_id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND K.käyttäjä_id = :kayttaja_id LIMIT 1');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('tehtava_id' => $id, 'kayttaja_id' => $kayttaja_id));

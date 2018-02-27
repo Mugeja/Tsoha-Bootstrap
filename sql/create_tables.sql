@@ -14,8 +14,8 @@ tila varchar(255)
 
 CREATE TABLE Käyttäjän_tehtävät(
 id SERIAL PRIMARY KEY,
-käyttäjä_id INTEGER REFERENCES Käyttäjä(id),
-tehtävä_id INTEGER REFERENCES Tehtävä(id),
+käyttäjä_id INTEGER REFERENCES Käyttäjä(id) ON DELETE CASCADE,
+tehtävä_id INTEGER REFERENCES Tehtävä(id) ON DELETE CASCADE,
 kuvaus varchar(255),
 hyväksyjä varchar(255),
 suoritettu varchar(255) NOT NULL
