@@ -3,20 +3,24 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 <h1>{{tehtava.nimi}}</h1>
+
+{% if tehtava.kuvaus%}
+<div>
+    Missä ja/tai miten suoritettiin: {{tehtava.kuvaus}}
+</div>
+{% if tehtava.suoritettu == 'kyllä'%}
+<h2><label class="label label-success">suoritettu</label></h2>
+{% endif %}
+<div>
+    Hyväksyjä: {{tehtava.hyväksyjä}}
+</div>
+{% else %}
+<h2><label class="label label-danger">kesken</label></h2>
+{% endif %}
+
+<p><a href="{{base_path}}/tehtavat">takaisin</p>
 <p>
     {{forms.destroy_button("#{base_path}/tehtavat/#{tehtava.id}/poista")}}
     <a class="btn btn-default btn-sm" href="{{base_path}}/tehtavat/{{tehtava.id}}/muokkaa">Muokkaa</a>
 </p>
-
-<p>
-<li>Tehtävän kuvaus</li>    {{tehtava.kuvaus}}
-</p>
-{% if tehtava.suoritettu == 'kyllä'%}
-<label class="label label-success">suoritettu</label>
-<td>{{tehtava.hyväksyjä}}</td>
-{% else %}
-<label class="label label-danger">kesken</label>
-{% endif %}
-<p><a href="{{base_path}}/tehtavat">takaisin</p>
-
 {% endblock %}

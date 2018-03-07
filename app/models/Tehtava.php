@@ -60,7 +60,7 @@ class Tehtava extends BaseModel {
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND K.käyttäjä_id = :kayttaja_id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi, T.status, T.tila FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND T.id = :tehtava_id AND K.käyttäjä_id = :kayttaja_id LIMIT 1');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('tehtava_id' => $id, 'kayttaja_id' => $kayttaja_id));
@@ -72,6 +72,8 @@ class Tehtava extends BaseModel {
                 'suoritettu' => $row['suoritettu'],
                 'hyväksyjä' => $row['hyväksyjä'],
                 'kuvaus' => $row['kuvaus'],
+                'tila' => $row['tila'],
+                'status' => $row['status'],
                 'nimi' => $row['nimi']
             ));
             return $tehtava;

@@ -21,10 +21,13 @@ class UserController extends BaseController {
 
     public static function store() {
         $params = $_POST;
+        if ($params['salasana'] != $params['salasanan_varmistus']) {
+            View::make('suunnitelmat/kirjaudu.html', array('password_error' => 'Salasanat eivät ole samat'));
+        }
         $attributes = array(
             'nimi' => $params['nimi'],
             'salasana' => $params['salasana'],
-            'status' => 'fuksi'
+            'status' => 'vastaava'
         );
         $kayttaja = new User($attributes);
         $errors = $kayttaja->errors();
