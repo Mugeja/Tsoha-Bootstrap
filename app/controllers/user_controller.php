@@ -11,7 +11,9 @@ class UserController extends BaseController {
     public static function kayttajat() {
         self::check_logged_in();
         $kayttajat = User::tulostaKayttajat();
-        $count = array();
+        
+        // Käyttäjän tehtyjen tehtävien lasku, work in progress
+      //$count = array();
       //  foreach ($kayttajat as $kayttaja) {
       //      $count = Tehtava::laske_tehtavat($kayttaja->id);
       // }
@@ -24,6 +26,7 @@ class UserController extends BaseController {
         if ($params['salasana'] != $params['salasanan_varmistus']) {
             View::make('suunnitelmat/kirjaudu.html', array('password_error' => 'Salasanat eivät ole samat'));
         }
+        
         $attributes = array(
             'nimi' => $params['nimi'],
             'salasana' => $params['salasana'],
@@ -60,8 +63,9 @@ class UserController extends BaseController {
 
     public static function edit($id) {
         self::check_logged_in();
+        $status = array('fuksi', 'tuutori', 'vastaava');
         $user = User::etsi($id);
-        View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user));
+        View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user, 'status' => $status));
     }
 
     public static function update($id) {
@@ -81,7 +85,7 @@ class UserController extends BaseController {
             View::make('suunnitelmat/kayttaja_muokkaus.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {
             $user->update($id);
-            Redirect::to('/tehtavat', array('message' => 'Tehtava on muokattu onnistuneesti'));
+            Redirect::to('/tehtavat', array('message' => 'Käyttäjää on muokattu onnistuneesti'));
         }
     }
 
