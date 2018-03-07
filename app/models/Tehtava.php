@@ -87,10 +87,13 @@ class Tehtava extends BaseModel {
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila));
         $row = $query->fetch();
         $this->id = $row['id'];
-        kint::dump($this->id);
-        $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
-        $query2->execute(array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $this->id, 'suoritettu' => 'ei'));
-    }   
+        $count = User::kayttajien_maara();
+        for ($x = 1; $x <= $count ; $x++) {
+            $kayttaja_id = $x;
+            $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
+            $query2->execute(array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $this->id, 'suoritettu' => 'ei'));
+        }
+    }
 
     public function update($id) {
         $kayttaja = UserController::get_user_logged_in();
@@ -99,8 +102,7 @@ class Tehtava extends BaseModel {
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila, 'id' => $id));
         $query2 = DB::connection()->prepare('UPDATE Käyttäjän_tehtävät SET (suoritettu, kuvaus, hyväksyjä) =(:suoritettu, :kuvaus, :hyvaksyja) WHERE käyttäjä_id = :kayttaja_id AND tehtävä_id = :tehtava_id');
         $query2->execute((array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $id, 'suoritettu' => $this->suoritettu, 'kuvaus' => $this->kuvaus, 'hyvaksyja' => $this->hyväksyjä)));
-        
-    }   
+    }
 
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');

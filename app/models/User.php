@@ -34,6 +34,13 @@ class User extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status)');
         $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status));
     }
+    public static function kayttajien_maara(){
+        $query = DB::connection()->prepare('SELECT COUNT(DISTINCT id) FROM Käyttäjä');
+        $query->execute();
+        $count = $query->fetch();
+        $return = $count['count'];
+        return $return;
+    }
     
 
     public static function etsi($id) {

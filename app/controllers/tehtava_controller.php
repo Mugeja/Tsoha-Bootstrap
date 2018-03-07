@@ -13,7 +13,6 @@ class TehtavaController extends BaseController {
     public static function show($id) {
         self::check_logged_in();
         $tehtava = Tehtava::etsi($id);
-        kint::dump($tehtava);
         View::make('suunnitelmat/esittely.html', array('tehtava' => $tehtava));
     }
 
