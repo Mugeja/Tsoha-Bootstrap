@@ -13,7 +13,7 @@ class User extends BaseModel {
                 $this->{$attribute} = $value;
             }
         }
-        $this->validators = array('validoi_nimi', 'validoi_salasana', 'tarkista_kayttaja');
+        $this->validators = array('validoi_nimi', 'validoi_salasana');
     }
 
     public static function tulostaKayttajat() {
