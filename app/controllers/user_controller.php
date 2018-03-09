@@ -11,12 +11,12 @@ class UserController extends BaseController {
     public static function kayttajat() {
         self::check_logged_in();
         $users = User::tulostaKayttajat();
-        
+
         // Käyttäjän tehtyjen tehtävien lasku, work in progress
-      //$count = array();
-      //  foreach ($kayttajat as $kayttaja) {
-      //      $count = Tehtava::laske_tehtavat($kayttaja->id);
-      // }
+        //$count = array();
+        //foreach ($users as $user) {
+        //    $count = Tehtava::laske_tehtavat($kayttaja->id);
+        //}
 
         View::make('suunnitelmat/kayttajat.html', array('users' => $users));
     }
@@ -26,7 +26,7 @@ class UserController extends BaseController {
         if ($params['salasana'] != $params['salasanan_varmistus']) {
             View::make('suunnitelmat/kirjaudu.html', array('password_error' => 'Salasanat eivät ole samat'));
         }
-        
+
         $attributes = array(
             'nimi' => $params['nimi'],
             'salasana' => $params['salasana'],
@@ -67,6 +67,7 @@ class UserController extends BaseController {
         $user = User::etsi($id);
         View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user, 'status' => $status));
     }
+
     public static function show($id) {
         self::check_logged_in();
         $user = User::etsi($id);
@@ -94,10 +95,11 @@ class UserController extends BaseController {
             Redirect::to('/tehtavat', array('message' => 'Käyttäjää on muokattu onnistuneesti'));
         }
     }
-        public static function destroy($id) {
 
-        $tehtava = new Tehtava(array('id' => $id));
-        $tehtava->destroy($id);
+    public static function destroy($id) {
+
+        $user = new User(array('id' => $id));
+        $user->destroy($id);
 
         Redirect::to('/kayttajat', array('message' => 'Kayttaja poistettu'));
     }

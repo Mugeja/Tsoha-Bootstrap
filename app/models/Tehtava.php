@@ -35,7 +35,7 @@ class Tehtava extends BaseModel {
         return $errors;
     }
 
-    public function laske_tehtavat($id) {
+    public static function laske_tehtavat($id) {
         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Tehtävä WHERE tehtävä.suoritettu = :suoriettu ');
         $query->execute(array('id' => $id, 'suoritettu' => 'kyllä'));
         $count = $query->fetch();
@@ -78,7 +78,7 @@ class Tehtava extends BaseModel {
         }
     }
 
-    public function save() {
+    public function save() { 
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, status, tila) VALUES (:nimi, :status, :tila) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila));
         $row = $query->fetch();
