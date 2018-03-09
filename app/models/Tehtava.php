@@ -79,15 +79,13 @@ class Tehtava extends BaseModel {
     }
 
     public function save() {
-        $kayttaja = UserController::get_user_logged_in();
-        $kayttaja_id = $kayttaja->id;
         $query = DB::connection()->prepare('INSERT INTO Tehtävä (nimi, status, tila) VALUES (:nimi, :status, :tila) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila));
         $row = $query->fetch();
         $this->id = $row['id'];
-        $count = User::kayttajien_maara();
-        for ($x = 1; $x <= $count ; $x++) {
-            $kayttaja_id = $x;
+        $user_id = User::kayttajat();
+        foreach ($user_id as $id) {
+            $kayttaja_id = $id;
             $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
             $query2->execute(array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $this->id, 'suoritettu' => 'ei'));
         }
@@ -105,6 +103,17 @@ class Tehtava extends BaseModel {
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Tehtävä WHERE id = :id');
         $query->execute(array('id' => $id));
+    }
+    
+    public static function tehtava_id(){
+        $query = DB::connection()->prepare('SELECT ID FROM Tehtävä');
+        $query->execute();
+        $tehtavat = $query->fetchAll();
+        $return = array();
+        foreach ($tehtavat as $tehtava){
+            $return[] = $tehtava['id'];
+        }
+        return $return;
     }
 
 }

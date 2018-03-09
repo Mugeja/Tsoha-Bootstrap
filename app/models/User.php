@@ -31,14 +31,26 @@ class User extends BaseModel {
         return $kayttajat;
     }
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status)');
+        $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status));
+        $row = $query->fetch();
+        $this_id= $row['id'];
+        $tehtavat = Tehtava::tehtava_id();
+        
+        foreach ($tehtavat as $id) {
+            $tehtava_id = $id;
+            $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
+            $query2->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $tehtava_id, 'suoritettu' => 'ei'));
+        }
     }
-    public static function kayttajien_maara(){
-        $query = DB::connection()->prepare('SELECT COUNT(DISTINCT id) FROM Käyttäjä');
+    public static function kayttajat(){
+        $query = DB::connection()->prepare('SELECT ID FROM Käyttäjä');
         $query->execute();
-        $count = $query->fetch();
-        $return = $count['count'];
+        $users = $query->fetchAll();
+        $return = array();
+        foreach ($users as $user){
+            $return[] = $user['id'];
+        }
         return $return;
     }
     

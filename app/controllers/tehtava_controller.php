@@ -39,6 +39,7 @@ class TehtavaController extends BaseController {
 
     public static function create() {
         self::check_logged_in();
+        $user_id = User::kayttajat();
         View::make('suunnitelmat/new.html');
     }
 
