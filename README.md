@@ -3,9 +3,10 @@
 Yleisiä linkkejä:
 
 * Linkki sovellukseeni: http://swarttu.users.cs.helsinki.fi/Tsoha/
-* Linkki dokumentaatiooni: https://github.com/Mugeja/Tsoha-Bootstrap/blob/master/doc/Tsoha%20dokumentti%20viikko%201.pdf
-Käyttäjä Arttu
-Salasana huonosalasana
+* Linkki dokumentaatiooni: https://github.com/Mugeja/Tsoha-Bootstrap/blob/master/doc/Fuksipassisovelluksen%20dokumentaatio.pdf
+*Käyttäjätunnus: Arttu
+*Salasana: huonosalasana
+*Rekisteröityminen mahdollista
 
 ## Työn aihe
 
