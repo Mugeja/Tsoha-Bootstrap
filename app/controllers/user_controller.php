@@ -70,7 +70,7 @@ class UserController extends BaseController {
     public static function show($id) {
         self::check_logged_in();
         $user = User::etsi($id);
-        $tehtavat = Tehtava::tulostaTehtavat();
+        $tehtavat = Tehtava::tulostaTehtavat($user->id);
         View::make('suunnitelmat/kayttaja.html', array('user' => $user, 'tehtavat' => $tehtavat));
     }
 

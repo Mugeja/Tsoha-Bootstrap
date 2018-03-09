@@ -42,10 +42,8 @@ class Tehtava extends BaseModel {
         return $count;
     }
 
-    public static function tulostaTehtavat() {
+    public static function tulostaTehtavat($kayttaja_id) {
         $query = DB::connection()->prepare('SELECT T.*, K.suoritettu, K.kuvaus, K.hyväksyjä FROM Tehtävä T LEFT JOIN Käyttäjän_tehtävät K on T.ID = K.tehtävä_id AND K.käyttäjä_id = :kayttaja_id ORDER BY T.nimi');
-        $kayttaja = UserController::get_user_logged_in();
-        $kayttaja_id = $kayttaja->id;
         $query->execute(array('kayttaja_id' => $kayttaja_id));
         $rivit = $query->fetchAll();
         $tehtavat = array();
