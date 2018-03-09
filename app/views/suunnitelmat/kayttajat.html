@@ -11,10 +11,10 @@
     </thead>
 
     <tbody>
-        {% for kayttaja in kayttajat%}
+        {% for user in users%}
         <tr>
-            <td>{{kayttaja.nimi}}</td>
-            <td>{{kayttaja.status}}</td>
+            <td><a href="{{base_path}}/kayttajat/{{user.id}}">{{user.nimi}}</td>
+            <td>{{user.status}}</td>
             <td>{{count}}</td>
             <td><a class="btn btn-default btn-sm" href="{{base_path}}/kayttajat/{{kayttaja.id}}/muokkaa">Muokkaa</a></td>
 

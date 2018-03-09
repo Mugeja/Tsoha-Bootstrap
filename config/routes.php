@@ -31,6 +31,10 @@ $routes->get('/tehtavat/new', function() {
 $routes->get('/tehtavat/:id', function($id) {
     TehtavaController::show($id);
 });
+$routes->get('/kayttajat/:id', function($id) {
+    UserController::show($id);
+});
+
 $routes->get('/tehtavat/:id/muokkaa', function($id) {
     TehtavaController::edit($id);
 });
@@ -47,6 +51,9 @@ $routes->post('/kayttajat/:id/muokkaa', function($id) {
 
 $routes->post('/tehtavat/:id/poista', function($id) {
     TehtavaController::destroy($id);
+});
+$routes->post('/kayttajat/:id/poista', function($id) {
+    UserController::destroy($id);
 });
 $routes->get('/kirjaudu', function() {
     UserController::login();

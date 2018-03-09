@@ -10,7 +10,7 @@ class UserController extends BaseController {
 
     public static function kayttajat() {
         self::check_logged_in();
-        $kayttajat = User::tulostaKayttajat();
+        $users = User::tulostaKayttajat();
         
         // Käyttäjän tehtyjen tehtävien lasku, work in progress
       //$count = array();
@@ -18,7 +18,7 @@ class UserController extends BaseController {
       //      $count = Tehtava::laske_tehtavat($kayttaja->id);
       // }
 
-        View::make('suunnitelmat/kayttajat.html', array('kayttajat' => $kayttajat));
+        View::make('suunnitelmat/kayttajat.html', array('users' => $users));
     }
 
     public static function store() {
@@ -67,6 +67,12 @@ class UserController extends BaseController {
         $user = User::etsi($id);
         View::make('suunnitelmat/kayttaja_muokkaus.html', array('attributes' => $user, 'status' => $status));
     }
+    public static function show($id) {
+        self::check_logged_in();
+        $user = User::etsi($id);
+        $tehtavat = Tehtava::tulostaTehtavat();
+        View::make('suunnitelmat/kayttaja.html', array('user' => $user, 'tehtavat' => $tehtavat));
+    }
 
     public static function update($id) {
         $params = $_POST;
@@ -87,6 +93,13 @@ class UserController extends BaseController {
             $user->update($id);
             Redirect::to('/tehtavat', array('message' => 'Käyttäjää on muokattu onnistuneesti'));
         }
+    }
+        public static function destroy($id) {
+
+        $tehtava = new Tehtava(array('id' => $id));
+        $tehtava->destroy($id);
+
+        Redirect::to('/kayttajat', array('message' => 'Kayttaja poistettu'));
     }
 
 }

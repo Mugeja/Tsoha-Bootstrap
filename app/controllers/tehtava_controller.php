@@ -7,6 +7,7 @@ class TehtavaController extends BaseController {
     public static function index() {
         self::check_logged_in();
         $tehtavat = Tehtava::tulostaTehtavat();
+        
         View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
     }
 
