@@ -9,7 +9,8 @@ class TehtavaController extends BaseController {
         $user = UserController::get_user_logged_in();
         $user_id = $user->id;
         $tehtavat = Tehtava::tulostaTehtavat($user_id);
-        View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
+        $status = $user->status;
+        View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat, 'status' => $status));
     }
 
     public static function show($id) {
