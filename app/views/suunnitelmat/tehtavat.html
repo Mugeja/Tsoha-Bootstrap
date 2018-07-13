@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{status}} {{user_logged_in.nimi}} tehtävät</h1>
+<h1>{{user_logged_in.status}} {{user_logged_in.nimi}} tehtävät</h1>
 
 <p>
     <a href=" {{base_path}}/tehtavat/new" class="btn btn-success">Lisää tehtävä</a>
@@ -17,7 +17,8 @@
             <th></th>
         </tr>
     </thead>
-
+    
+    
     <tbody>
         {% for tehtava in tehtavat%}
         <tr>

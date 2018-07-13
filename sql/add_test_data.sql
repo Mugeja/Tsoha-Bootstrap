@@ -7,6 +7,8 @@ INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Hyppää kaivoon', 'fuksi',
 INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Osta tuutorivastaavalle kalja',
 'tuutori', 'ei');
 
+INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 1, 'yksi', 'kyllä', 'vastaava');
+INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 2, 'punainen', 'ei', 'arttu');
 INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 1, 'yksi', 'kyllä', 'vastaava');
 INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (1, 2, 'kaksi', 'ei');
 INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 1, 'kolme', 'ei');
