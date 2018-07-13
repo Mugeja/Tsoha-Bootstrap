@@ -63,7 +63,7 @@ class User extends BaseModel {
             $User = new User(array('id' => $rivi['id'],
                 'nimi' => $rivi['nimi'],
                 'salasana' => $rivi['salasana'],
-                'staus' => $rivi['status'],
+                'status' => $rivi['status'],
             ));
             return $User;
         }

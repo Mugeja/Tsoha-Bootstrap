@@ -8,9 +8,10 @@ class TehtavaController extends BaseController {
         self::check_logged_in();
         $user = UserController::get_user_logged_in();
         $user_id = $user->id;
-        $tehtavat = Tehtava::tulostaTehtavat($user_id);
         $status = $user->status;
-        View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat, 'status' => $status));
+        Kint::dump($status);
+        $tehtavat = Tehtava::tulostaTehtavat($user_id, $status);
+        View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
     }
 
     public static function show($id) {
@@ -23,7 +24,7 @@ class TehtavaController extends BaseController {
         $params = $_POST;
         $attributes = array(
             'nimi' => $params['nimi'],
-            'status' => $params['status'],
+            'status' => $params['vastaus'],
             'tila' => $params['tila']
         );
 
@@ -41,7 +42,11 @@ class TehtavaController extends BaseController {
     public static function create() {
         self::check_logged_in();
         $user_id = User::kayttajat();
-        View::make('suunnitelmat/new.html');
+        $lista = array();
+        $lista[] = 'fuksi';
+        $lista[] = 'tuutori';
+        $lista[] = 'vastaava';
+        View::make('suunnitelmat/new.html', array('lista' => $lista));
     }
 
     public static function edit($id) {
@@ -50,7 +55,11 @@ class TehtavaController extends BaseController {
         $lista = array();
         $lista[] = 'ei';
         $lista[] = 'kyllä';
-        View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava, 'lista' => $lista));
+        $statuslista = array();
+        $statuslista[] = 'fuksi';
+        $statuslista[] = 'tuutori';
+        $statuslista[] = 'vastaava';
+        View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava,'statuslista' => $statuslista, 'lista' => $lista));
     }
 
     public static function update($id) {
@@ -58,12 +67,11 @@ class TehtavaController extends BaseController {
         $lista[] = 'ei';
         $lista[] = 'kyllä';
         $params = $_POST;
-        $vastaus = $params['vastaus'];
         $attributes = array(
             'id' => $id,
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
-            'suoritettu' => $vastaus,
+            'suoritettu' => $params['vastaus'],
             'hyväksyjä' => $params['hyväksyjä'],
             'tila' => $params['tila'],
             'status' => $params['status']

@@ -1,17 +1,4 @@
 INSERT INTO Käyttäjä (nimi, salasana, status) VALUES ('Arttu', 'huonosalasana', 'vastaava');
-INSERT INTO Käyttäjä (nimi, salasana, status) VALUES ('Typerä fuksi', 'suolasana', 'fuksi');
-INSERT INTO Käyttäjä (nimi, salasana, status) VALUES ('SuuriJaMahtavaTuutori', 'MATRIX', 'tuutori');
+INSERT INTO Käyttäjä (nimi, salasana, status) VALUES ('Vertti', 'salasana', 'fuksi');
+INSERT INTO Käyttäjä (nimi, salasana, status) VALUES ('tuutori', 'tuutori', 'tuutori');
 
-INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Hyppää kaivoon', 'fuksi',
-'aktiivinen');
-INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Osta tuutorivastaavalle kalja',
-'tuutori', 'ei');
-
-INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 1, 'yksi', 'kyllä', 'vastaava');
-INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 2, 'punainen', 'ei', 'arttu');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (1, 1, 'yksi', 'kyllä', 'vastaava');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (1, 2, 'kaksi', 'ei');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 1, 'kolme', 'ei');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 2, 'neljä', 'kyllä');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (3, 1, 'viisi', 'kyllä');
-INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (3, 2, 'kuusi', 'kyllä');

@@ -22,9 +22,13 @@
         <input type="text" name="tila" class="form-control">
     </div>
 
-    <div class="form-group">
-        <label>status(väh 2 merkkiä pitkä, kenelle tehtävät on)</label>
-        <input type="text" name="status" class="form-control">
+    <div>
+        <label>Status</label>
+        <select class="form-control" name="vastaus">
+            {% for vastaus in lista%}
+            <option>{{vastaus}}</option>
+            {% endfor %}
+        </select>
     </div>
 
     <div class="form-group">
