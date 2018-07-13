@@ -9,7 +9,6 @@ class TehtavaController extends BaseController {
         $user = UserController::get_user_logged_in();
         $user_id = $user->id;
         $status = $user->status;
-        Kint::dump($status);
         $tehtavat = Tehtava::tulostaTehtavat($user_id, $status);
         View::make('suunnitelmat/tehtavat.html', array('tehtavat' => $tehtavat));
     }

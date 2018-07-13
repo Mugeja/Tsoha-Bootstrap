@@ -3,8 +3,9 @@
 <h1>{{user_logged_in.status}}n {{user_logged_in.nimi}} tehtävät</h1>
 
 <p>
+    {% if user_logged_in.status == 'vastaava'%}
     <a href=" {{base_path}}/tehtavat/new" class="btn btn-success">Lisää tehtävä</a>
-
+    {% endif %}
 </p>
 
 <table class="table table-striped table-bordered">
@@ -22,7 +23,7 @@
     <tbody>
         {% for tehtava in tehtavat%}
         <tr>
-            <td><a href="{{base_path}}/tehtavat/{{tehtava.id}}">{{tehtava.nimi}}</td>
+            <td>{{tehtava.nimi}}</td>
             <td>{{tehtava.hyväksyjä}}</td>
             <td>{{tehtava.kuvaus}}</td>
             <td>

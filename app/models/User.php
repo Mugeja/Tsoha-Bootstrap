@@ -26,34 +26,38 @@ class User extends BaseModel {
                 'nimi' => $rivi['nimi'],
                 'status' => $rivi['status'],
                 'salasana' => $rivi['salasana']]);
-            
         }
         return $kayttajat;
     }
+
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Käyttäjä (nimi, salasana, status) VALUES (:nimi, :salasana, :status) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status));
         $row = $query->fetch();
-        $this_id= $row['id'];
+        $this_id = $row['id'];
         $tehtavat = Tehtava::tehtava_id();
-        
+
         foreach ($tehtavat as $id) {
-            $tehtava_id = $id;
+
             $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
-            $query2->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $tehtava_id, 'suoritettu' => 'ei'));
+            $query2->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $id, 'suoritettu' => 'ei'));
+
+
+            $query3 = DB::connection()->prepare('INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
+            $query3->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $id, 'suoritettu' => 'ei'));
         }
     }
-    public static function kayttajat(){
+
+    public static function kayttajat() {
         $query = DB::connection()->prepare('SELECT ID FROM Käyttäjä');
         $query->execute();
         $users = $query->fetchAll();
         $return = array();
-        foreach ($users as $user){
+        foreach ($users as $user) {
             $return[] = $user['id'];
         }
         return $return;
     }
-    
 
     public static function etsi($id) {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE id = :id LIMIT 1');
@@ -80,6 +84,7 @@ class User extends BaseModel {
         $errors = $this->validoi_string($this->nimi, 2);
         return $errors;
     }
+
     public function tarkista_kayttaja() {
         $errors = array();
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE nimi = :nimi');
@@ -90,7 +95,6 @@ class User extends BaseModel {
         }
         return $errors;
     }
-    
 
     public static function authenticate($username, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Käyttäjä WHERE nimi = :username AND salasana = :password LIMIT 1');
@@ -100,10 +104,12 @@ class User extends BaseModel {
         $user = Self::etsi($rivi['id']);
         return $user;
     }
+
     public function update($id) {
         $query = DB::connection()->prepare('UPDATE Käyttäjä SET (nimi, salasana, status) = (:nimi, :salasana, :status) WHERE id = :id');
-        $query->execute(array('nimi' => $this->nimi,'salasana' => $this->salasana, 'status' => $this->status, 'id' => $id));
+        $query->execute(array('nimi' => $this->nimi, 'salasana' => $this->salasana, 'status' => $this->status, 'id' => $id));
     }
+
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Käyttäjä WHERE id = :id');
         $query->execute(array('id' => $id));

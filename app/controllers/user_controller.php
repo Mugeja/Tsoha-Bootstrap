@@ -30,7 +30,7 @@ class UserController extends BaseController {
         $attributes = array(
             'nimi' => $params['nimi'],
             'salasana' => $params['salasana'],
-            'status' => 'vastaava'
+            'status' => 'fuksi'
         );
         $kayttaja = new User($attributes);
         $errors = $kayttaja->errors();

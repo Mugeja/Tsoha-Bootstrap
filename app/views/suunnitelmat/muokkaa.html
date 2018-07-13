@@ -36,7 +36,7 @@
         <label>Hyväksyjä: {{attributes.hyväksyjä}}</label>
         <input type="text" name="hyväksyjä" class="form-control">
     </div>
-    
+    {% if user_logged_in.status == 'vastaava'%}
     <p>Ainoastaan tuutorivastaavan muokattavissa</p>
     <div class="form-group">
         <label>Tila: {{attributes.tila}}</label>
@@ -50,7 +50,17 @@
             {% endfor %}
         </select>
     </div>
-
+    {% endif %}
+    {% if user_logged_in != 'vastaava'%}
+    <div class="form-group">
+        <label>Tila: {{attributes.tila}}</label>
+        <input type="text" name="tila" value="{{attributes.tila}}" class="form-control">
+    </div>
+    <div>
+        <label>Status: {{attributes.status}}</label>
+        <input type="text" name="tila" value="{{attributes.tila}}" class="form-control">
+    </div>
+    {% endif %}
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

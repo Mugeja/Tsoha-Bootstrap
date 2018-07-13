@@ -1,3 +1,18 @@
 
 validointi
 tehtavat.html, statusksen näyttäminen
+
+INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Hyppää kaivoon', 'fuksi',
+'aktiivinen');
+INSERT INTO Tehtävä (nimi, status, tila) VALUES ('fuksitehtävä', 'fuksi',
+'aktiivinen');
+INSERT INTO Tehtävä (nimi, status, tila) VALUES ('Osta tuutorivastaavalle kalja',
+'tuutori', 'ei');
+INSERT INTO Tehtävä (nimi, status, tila) VALUES ('tuutoritehtävä',
+'tuutori', 'ei');
+
+INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (3, 3, 'jepulis', 'kyllä', 'arttu');
+INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (3, 4, 'kakkelis', 'ei');
+
+INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu, hyväksyjä) VALUES (2, 1, 'yksi', 'kyllä', 'vastaava');
+INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, kuvaus, suoritettu) VALUES (2, 2, 'testi', 'ei');
