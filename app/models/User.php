@@ -38,14 +38,14 @@ class User extends BaseModel {
         $tehtavat = Tehtava::tehtava_id();
 
         foreach ($tehtavat as $id) {
-
+            if (Tehtava::etsiTehtava($id)->status == 'fuksi') {
             $query2 = DB::connection()->prepare('INSERT INTO Käyttäjän_tehtävät (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
             $query2->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $id, 'suoritettu' => 'ei'));
-
-
+            }
+            if (Tehtava::etsiTehtava($id)->status == 'tuutori') {
             $query3 = DB::connection()->prepare('INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
             $query3->execute(array('kayttaja_id' => $this_id, 'tehtava_id' => $id, 'suoritettu' => 'ei'));
-        }
+        }}
     }
 
     public static function kayttajat() {

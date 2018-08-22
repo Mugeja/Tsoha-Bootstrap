@@ -12,9 +12,6 @@ $routes->get('/etusivu', function() {
     UserController::login();
 });
 
-$routes->get('/tehtavan_muokkaus', function() {
-    HelloWorldController::tehtavan_muokkaus();
-});
 $routes->get('/tehtavat', function() {
     TehtavaController::index();
 });

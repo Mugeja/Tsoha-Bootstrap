@@ -85,8 +85,6 @@ class TehtavaController extends BaseController {
             View::make('suunnitelmat/muokkaa.html', array('lista' => $lista, 'errors' => $errors, 'attributes' => $attributes));
         } else {
             $tehtava->update($id);
-
-
             Redirect::to('/tehtavat', array('message' => 'Tehtava on muokattu onnistuneesti'));
         }
     }

@@ -95,9 +95,28 @@ class Tehtava extends BaseModel {
             return $tehtavat;
         }
     }
+    
+    public static function etsiTehtava($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Tehtävä WHERE id = :id LIMIT 1');
+        $query->execute(array('id' => $id));
+        $rivi = $query->fetch();
+        if ($rivi) {
+            $Tehtava = new Tehtava(array('id' => $rivi['id'],
+                'nimi' => $rivi['nimi'],
+                'tila' => $rivi['tila'],
+                'status' => $rivi['status'],
+            ));
+            return $Tehtava;
+        }
+    }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi, T.status, T.tila FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on K.tehtävä_id = :tehtava_id AND T.id = :tehtava_id AND K.käyttäjä_id = :kayttaja_id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT K.suoritettu, K.hyväksyjä, K.kuvaus, T.nimi, T.status, T.tila '
+                . 'FROM Käyttäjän_tehtävät K INNER JOIN Tehtävä T on '
+                . 'K.tehtävä_id = :tehtava_id '
+                . 'AND T.id = :tehtava_id '
+                . 'AND K.käyttäjä_id = :kayttaja_id '
+                . 'LIMIT 1');
         $kayttaja = UserController::get_user_logged_in();
         $kayttaja_id = $kayttaja->id;
         $query->execute(array('tehtava_id' => $id, 'kayttaja_id' => $kayttaja_id));
@@ -132,7 +151,6 @@ class Tehtava extends BaseModel {
             if (User::etsi($id)->status == 'tuutori') {
                 $query2 = DB::connection()->prepare('INSERT INTO Tuutorien_tehtavat (käyttäjä_id, tehtävä_id, suoritettu) VALUES (:kayttaja_id, :tehtava_id, :suoritettu)');
                 $query2->execute(array('kayttaja_id' => $id, 'tehtava_id' => $this->id, 'suoritettu' => 'ei'));
-                
             }
         }
     }
@@ -142,8 +160,15 @@ class Tehtava extends BaseModel {
         $kayttaja_id = $kayttaja->id;
         $query = DB::connection()->prepare('UPDATE Tehtävä SET (nimi, status, tila) = (:nimi, :status, :tila) WHERE id = :id');
         $query->execute(array('nimi' => $this->nimi, 'status' => $this->status, 'tila' => $this->tila, 'id' => $id));
-        $query2 = DB::connection()->prepare('UPDATE Käyttäjän_tehtävät SET (suoritettu, kuvaus, hyväksyjä) =(:suoritettu, :kuvaus, :hyvaksyja) WHERE käyttäjä_id = :kayttaja_id AND tehtävä_id = :tehtava_id');
-        $query2->execute((array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $id, 'suoritettu' => $this->suoritettu, 'kuvaus' => $this->kuvaus, 'hyvaksyja' => $this->hyväksyjä)));
+
+        if ($this->status == 'fuksi') {
+            $query2 = DB::connection()->prepare('UPDATE Käyttäjän_tehtävät SET (suoritettu, kuvaus, hyväksyjä) =(:suoritettu, :kuvaus, :hyvaksyja) WHERE käyttäjä_id = :kayttaja_id AND tehtävä_id = :tehtava_id');
+            $query2->execute((array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $id, 'suoritettu' => $this->suoritettu, 'kuvaus' => $this->kuvaus, 'hyvaksyja' => $this->hyväksyjä)));
+        }
+        if ($this->status == 'tuutori') {
+            $query3 = DB::connection()->prepare('UPDATE Tuutorien_tehtavat SET (suoritettu, kuvaus, hyväksyjä) =(:suoritettu, :kuvaus, :hyvaksyja) WHERE käyttäjä_id = :kayttaja_id AND tehtävä_id = :tehtava_id');
+            $query3->execute((array('kayttaja_id' => $kayttaja_id, 'tehtava_id' => $id, 'suoritettu' => $this->suoritettu, 'kuvaus' => $this->kuvaus, 'hyvaksyja' => $this->hyväksyjä)));
+        }
     }
 
     public function destroy($id) {
