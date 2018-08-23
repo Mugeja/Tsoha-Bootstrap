@@ -50,7 +50,8 @@ class TehtavaController extends BaseController {
 
     public static function edit($id) {
         self::check_logged_in();
-        $tehtava = Tehtava::etsi($id);
+        $attributes= Tehtava::etsiTehtava($id); 
+        
         $lista = array();
         $lista[] = 'ei';
         $lista[] = 'kyllä';
@@ -58,23 +59,23 @@ class TehtavaController extends BaseController {
         $statuslista[] = 'fuksi';
         $statuslista[] = 'tuutori';
         $statuslista[] = 'vastaava';
-        View::make('suunnitelmat/muokkaa.html', array('attributes' => $tehtava,'statuslista' => $statuslista, 'lista' => $lista));
+        View::make('suunnitelmat/muokkaa.html', array('attributes' => $attributes,'statuslista' => $statuslista, 'lista' => $lista));
     }
 
     public static function update($id) {
+        $status = Tehtava::etsiTehtava($id)->status;
+        $nimi = Tehtava::etsiTehtava($id)->nimi;
         $lista = array();
         $lista[] = 'ei';
         $lista[] = 'kyllä';
         $params = $_POST;
         $attributes = array(
             'id' => $id,
-            'nimi' => $params['nimi'],
+            'nimi' => $nimi,
             'kuvaus' => $params['kuvaus'],
             'suoritettu' => $params['vastaus'],
             'hyväksyjä' => $params['hyväksyjä'],
-            'tila' => $params['tila'],
-            'status' => $params['status']
-            
+            'status' => $status
         );
 
         $tehtava = new Tehtava($attributes);

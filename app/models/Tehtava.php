@@ -14,7 +14,7 @@ class Tehtava extends BaseModel {
             }
         }
 
-        $this->validators = array('validoi_nimi', 'validoi_tila', 'validoi_status');
+        $this->validators = array('validoi_nimi', 'validoi_status');
     }
 
     public function validoi_nimi() {
@@ -29,11 +29,7 @@ class Tehtava extends BaseModel {
         return $errors;
     }
 
-    public function validoi_tila() {
-        $errors = array();
-        $errors = $this->validoi_string($this->tila, 2);
-        return $errors;
-    }
+    
 
     public static function laske_tehtavat($id) {
         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Tehtävä WHERE tehtävä.suoritettu = :suoriettu ');
