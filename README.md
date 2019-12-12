@@ -8,7 +8,7 @@ Yleisiä linkkejä:
 * Käyttäjätunnus: Arttu (Fuksivastaava, näkee kaikkitiedot, ei suorita tehtäviä)
 * Salasana: huonosalasana
 
-* Käyttäjätunnus: Vertti (Fuksi, ohjelman pää käyttäjä, samanlainen kuin tuutori mutta erilliset tehtävät)
+* Käyttäjätunnus: Vertti (Fuksi, ohjelman pääkäyttäjä, samanlainen kuin tuutori mutta erilliset tehtävät)
 * Salasana: salasana
 
 
